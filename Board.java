@@ -1,3 +1,5 @@
+import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -5,6 +7,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
@@ -22,7 +25,8 @@ public class Board extends JFrame implements ActionListener{
 		JMenuItem newgame = new JMenuItem("New game");
 		JMenuItem instructions = new JMenuItem("Instructions");
 		JMenuItem exit = new JMenuItem("Exit");
-		
+		JMenuBar bar = new JMenuBar();
+
 		file.setMnemonic(KeyEvent.VK_F);
 		newgame.setMnemonic(KeyEvent.VK_N);
 
@@ -37,9 +41,21 @@ public class Board extends JFrame implements ActionListener{
 		file.addSeparator();
 		file.add(exit);
 		
+        setJMenuBar(bar);
+        bar.add(file);
+        setDefaultLookAndFeelDecorated(true);		
+        
+		Container con = this.getContentPane();
+		con.setLayout(new FlowLayout());
+		setSize(400, 400);
+	        
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setResizable(false);
+        setVisible(true);    
+		
 	}
 	
-	
+	/*
 	
 	//Draw functions
 	public void paint(Graphics g){
@@ -280,7 +296,7 @@ public class Board extends JFrame implements ActionListener{
 		g.setColor(new Color(149,146,140));
 		g.drawRect(100,10,71,96);
 	
-	}
+	}*/
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
