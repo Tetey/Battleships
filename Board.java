@@ -63,9 +63,8 @@ public class Board extends JFrame implements ActionListener{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);    
-		
-		
-	}
+	
+		}
 	
 	
 	/*
