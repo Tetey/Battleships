@@ -8,6 +8,7 @@ public class Board{
 		myBoard = new int[9][9]; //change to size of grid
 		opponentBoard = new int[9][9]; //change to size of grid
 		gameStatus = "init";
+		
 		Ship ship1 = new Ship(1);
 		Ship ship2 = new Ship(1);
 		Ship ship3 = new Ship(1);
