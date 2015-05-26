@@ -4,6 +4,9 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -13,11 +16,9 @@ import javax.swing.KeyStroke;
 
 
 public class Board extends JFrame implements ActionListener{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7193663594390472688L;
-	
+	private static final int TILELENGTH = 35;
+	private String status = "init";
 	public Board(){
 		super("Battleships");
 		
@@ -34,61 +35,54 @@ public class Board extends JFrame implements ActionListener{
 		instructions.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
 		exit.addActionListener(this);
 		exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
-		
+		file.addActionListener(this);
 		
 		file.add(newgame);
 		file.add(instructions);
 		file.addSeparator();
 		file.add(exit);
 		
-        setJMenuBar(bar);
         bar.add(file);
+        setJMenuBar(bar);
         setDefaultLookAndFeelDecorated(true);		
         
 		Container con = this.getContentPane();
 		con.setLayout(new FlowLayout());
-		setSize(400, 400);
+		setSize(800, 400);
 	        
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);    
 		
+		MouseReader mouse = new MouseReader();
+		addMouseListener(mouse);
+		addMouseMotionListener(mouse);
+				
 	}
 	
-	/*
+	
 	
 	//Draw functions
 	public void paint(Graphics g){
-		super.repaint();
-		if(!win){
-			g.clearRect(0, 0, getWidth(), getHeight());
-			g.drawImage(bgimage,0,0,643,624,null);
-
-			paintSlot(g, 10, 10); //The deck slot holder
-			
-			for (int column = 0; column < 7; column++) //Draw the stack holders
-			{
-				paintSlot(g, ((column * 90) + 10), 120);
-			}
-			
-			for (int column = 0; column < 4; column++) //Draw the ace holders
-			{
-				paintSlot(g, ((column * 90) + 280), 10);
-			}
-			
-			
-			drawExtra(g);
-
+		super.paint(g);
+		if(!status.equals("end")){
+			drawBackgroundImage(g);
+			drawGridLines(g);
+			//drawBoats();
 		}
-		
 		else{
-		
-			g.drawImage(winImage,0,0,634,624,null);
-		
-		
+			//drawResult();
 		}
 	}
-
+	
+	private void drawBackgroundImage(Graphics g){
+		//g.drawImage("images"+File.separator +"bgimage.",0,0,643,624,null);
+	}
+	private void drawGridLines(Graphics g){
+		g.drawRect(30, 33, 10*TILELENGTH, 10*TILELENGTH);
+		g.drawRect(30+(11*TILELENGTH), 33, 10*TILELENGTH, 10*TILELENGTH);
+	}
+	/*
 	protected void drawExtra (Graphics g)
 	{
 		
@@ -297,10 +291,21 @@ public class Board extends JFrame implements ActionListener{
 		g.drawRect(100,10,71,96);
 	
 	}*/
+
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
+	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		
 	}
 
+	private class MouseReader extends MouseAdapter implements MouseMotionListener{
+			
+		public void mouseClicked(MouseEvent e){
+			System.out.println("x: " + e.getX() + " y: " + e.getY());
+			repaint();
+		}
+		
+	}
 }
+
+
