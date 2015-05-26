@@ -1,7 +1,9 @@
+import java.util.*;
+
 public class Board{
 	int[][] myBoard; 
 	int[][] opponentBoard;
-	ArrayList<MyShip> myShips = new ArrayList<MyShip>();
+	ArrayList<Ship> myShips = new ArrayList<Ship>();
 	String gameStatus;
 
 	public Board(){
