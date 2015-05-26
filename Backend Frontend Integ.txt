@@ -1,0 +1,8 @@
+Backend Frontend Integ
+
+variable pala na nagchecheck kung ongoing yung game haaa
+ganto nalang pala may isang String Variable na nagchecheck kung anong phase ng game na tayo
+Init phase - yung pagseset ng boats
+bombing phase - yeah bombing phase
+win/lose phase - kapag taops nayung game
+so may apat na posible values yung String na yun: init, ongoing, win, lose
