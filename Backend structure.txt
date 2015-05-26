@@ -2,4 +2,5 @@ Backend structure
 
 MyBoard 
 MyShip
- 
+sa MyBoard ung pangcheck if ongoing ung game
+//MyServer checks if tapos na ung game each time magmove si player
