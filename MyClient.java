@@ -8,10 +8,10 @@ public class MyClient{
 		try{
 			Socket s = new Socket("127.0.0.1", 8888);
 			Board board = new Board();
-			BoardUI myBoard = new BoardUI();
+			BoardUI boardUI = new BoardUI();
 			MyConnection m = new MyConnection(s);		
-			SendingThread st = new SendingThread(m, board);
-			ReceivingThread rt = new ReceivingThread(m, board);
+			SendingThread st = new SendingThread(m, board, boardUI);
+			ReceivingThread rt = new ReceivingThread(m, board, boardUI);
 			st.start();
 			rt.start();
 		}

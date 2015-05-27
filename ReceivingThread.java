@@ -3,10 +3,12 @@ import java.io.*;
 public class ReceivingThread extends Thread{
 	MyConnection m;
 	Board board;
-	
-	public ReceivingThread(MyConnection m, Board board){
+	BoardUI boardUI;
+
+	public ReceivingThread(MyConnection m, Board board, BoardUI boardUI){
 		this.m = m;
 		this.board = board;
+		this.boardUI = boardUI;
 	}
 	
 	public void run(){

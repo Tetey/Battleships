@@ -2,10 +2,12 @@ public class SendingThread extends Thread{
 	String input;
 	MyConnection m;
 	Board board;
+	BoardUI boardUI;
 
-	public SendingThread(MyConnection m, Board board){
+	public SendingThread(MyConnection m, Board board, BoardUI boardUI){
 		this.m = m;
 		this.board = board;
+		this.boardUI = boardUI;
 	}
 	
 	public void run(){
