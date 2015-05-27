@@ -44,6 +44,9 @@ public class Board{
 		myShips.add(ship6);
 		myShips.add(ship7);
 		myShips.add(ship8);
+		
+		myBoard[0][2]=TILEDEAD;
+		myBoard[6][7]=BOMBED;
 	}
 
 	//call when done with setup
