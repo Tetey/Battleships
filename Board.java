@@ -10,8 +10,8 @@ public class Board{
 	public String gameStatus;
 	public String message = null;
 
-	public boolean isMyTurn = false;
-	public boolean isSetUpDone = false;
+	protected boolean isMyTurn = false;
+	protected boolean isSetUpDone = false;
 
 	//PLAYER BOARD CONSTANTS
 

@@ -5,7 +5,12 @@ public class Ship{
 
 	public int XPosition;
 	public int YPosition;
-
+	public int xSize = 1;
+	public int ySize = 1;
+	
+	protected int XCoor = 0;
+	protected int YCoor = 0;
+	
 	public Ship(int size, int posInit){
 		
 		this.size = size;
@@ -48,5 +53,28 @@ public class Ship{
 			YPosition = 4;
 			break;
 		}
+		this.XCoor = getXCoordinates();
+		this.YCoor = getYCoordinates();
+		if(this.isHorizontal)
+			xSize = size;
+		else
+			ySize = size;
+	}
+	public void updateSizes(){
+		if(this.isHorizontal){
+			xSize = size;
+			ySize = 1;
+		}
+		else{
+			xSize = 1;
+			ySize = size;
+		}
+	}
+	public int getXCoordinates(){
+		return BoardUI.STARTXBORDER1 + XPosition*BoardUI.TILELENGTH+1;
+	}
+	
+	public int getYCoordinates(){
+		return BoardUI.STARTYBORDER + YPosition*BoardUI.TILELENGTH+1;
 	}
 }
