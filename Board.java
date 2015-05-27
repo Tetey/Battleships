@@ -23,8 +23,8 @@ public class Board{
 	protected static final int BOMBED = 6; //ito lang kailangan ni tetey
 
 	public Board(){
-		myBoard = new int[9][9]; //change to size of grid
-		opponentBoard = new int[9][9]; //change to size of grid
+		myBoard = new int[10][10]; //change to size of grid
+		opponentBoard = new int[10][10]; //change to size of grid
 		gameStatus = "init";
 		
 		Ship ship1 = new Ship(ONEBLOCKSHIP);
@@ -66,6 +66,12 @@ public class Board{
 			}  
 		}
 		message = "Setup Done";
+		for(int i = 0; i < 10; i++){
+			for(int j = 0; j < 10; j++){
+				message = message + " " + myBoard[i][j].toString();
+			}
+		}
+
 	}
 
 	public void setGameStatusToOngoing(){

@@ -15,11 +15,21 @@ public class ServerClientThread extends Thread{
 	
 	public void run(){		
 		try{
+			ServerClientThread tempSCT;
 			while(true){
 				String msg = m.getMessage();
-				if(msg.equals("Setup Done")){
+				if(msg.indexOf("Setup Done") != -1){
 					if(aSCT.size() == 1){
 						m.sendMessage("Still Alone");
+					}
+					else{
+						for(int i = 0; i < aSCT.size(); i++){
+							tempSCT = aSCT.get(i); 
+							if(tempSCT != this){
+								msg = msg.replace("Setup Done ", "Initialize OpponentBoard");
+								tempSCT.m.sendMessage(msg);
+							}
+						}
 					}
 				}
 				//all server processing message from client stuff put here
