@@ -8,9 +8,11 @@ public class Board{
 	//public ArrayList<Ship> opponentShips = new ArrayList<>();
 	
 	public String gameStatus;
-
 	public String message = null;
-	
+
+	public boolean isMyTurn = false;
+	public boolean isSetUpDone = false;
+
 	//PLAYER BOARD CONSTANTS
 
 	protected static final int INITIAL = 0; //ito lang kailangan ni tetey
@@ -51,9 +53,10 @@ public class Board{
 
 	}
 
-	//call when done with setup
+	//call as soon as done with setup
 	public void setupDone(){
 		setGameStatusToOngoing();
+
 		Ship temp;
 		for(int i = 0; i < myShips.size(); i++){
 			temp = myShips.get(i);
@@ -94,13 +97,20 @@ public class Board{
 				}
 			}  
 		}
+		setMessageForSetupDone();
+	}
+
+	public void setMessageForSetupDone(){
 		message = "Setup Done";
 		for(int i = 0; i < 10; i++){
 			for(int j = 0; j < 10; j++){
 				message = message + " " + Integer.toString(myBoard[i][j]);
 			}
 		}
+	}
 
+	public void signalStart(){
+		message = "I'm ready!";
 	}
 
 	public void setGameStatusToOngoing(){

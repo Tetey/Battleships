@@ -5,6 +5,7 @@ public class ServerClientThread extends Thread{
 	int playerNum;
 	int clientIndex = 0;
 	ArrayList<ServerClientThread> aSCT;
+	public boolean start = false;
 	
 	public ServerClientThread(MyConnection m, int playerNum, ArrayList<ServerClientThread> aSCT){
 		this.m = m;
@@ -31,6 +32,9 @@ public class ServerClientThread extends Thread{
 							}
 						}
 					}
+				}
+				if(msg.indexOf("I am ready!") != -1){
+					
 				}
 				//all server processing message from client stuff put here
 			}

@@ -16,7 +16,7 @@ public class ReceivingThread extends Thread{
 			while(true){
 				String msg = m.getMessage();
 				if(msg.equals("Still Alone")){
-					board.setupDone();
+					board.setMessageForSetupDone();
 				}
 				else if(msg.indexOf("Initialize OpponentBoard") != -1){
 					msg = msg.replace("Initialize OpponentBoard", "");
@@ -27,6 +27,7 @@ public class ReceivingThread extends Thread{
 							board.opponentBoard[i][j] = Integer.parseInt(tempStringArray[index]);
 						}
 					}
+					board.signalStart();
 				}
 			}
 		}
