@@ -2,13 +2,15 @@ import java.util.*;
 
 public class ServerClientThread extends Thread{
 	MyConnection m;
-	String clientName;
+	int playerNum;
 	int clientIndex = 0;
+	ArrayList<ServerClientThread> aSCT;
 	
-	
-	public ServerClientThread(MyConnection m, String clientName){
+	public ServerClientThread(MyConnection m, int playerNum, ArrayList<ServerClientThread> aSCT){
 		this.m = m;
-		this.clientName = clientName;		
+		this.playerNum = playerNum;
+		this.aSCT = aSCT;
+		aSCT.add(this);	
 	}
 	
 	public void run(){		

@@ -9,15 +9,15 @@ public class MyServer{
 			System.out.println("S: Starting server...");
 			ServerSocket ssocket = new ServerSocket(8888);
 			System.out.println("S: Waiting for connections...");
-			//ArrayList<ServerClientThread> aSCT = new ArrayList<ServerClientThread>();
+			ArrayList<ServerClientThread> aSCT = new ArrayList<ServerClientThread>();
 			
 			int counter = 1;
 			
 			while(true){
 				Socket s = ssocket.accept();
 				MyConnection m = new MyConnection(s);
-				String clientName = "Player" + counter;
-				ServerClientThread sct = new ServerClientThread(m, clientName);
+				int playerNum = counter;
+				ServerClientThread sct = new ServerClientThread(m, playerNum, aSCT);
 				sct.start();
 				counter++;
 			}

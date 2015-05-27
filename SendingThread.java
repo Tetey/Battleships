@@ -1,17 +1,20 @@
 public class SendingThread extends Thread{
 	String input;
 	MyConnection m;
-	
-	public SendingThread(MyConnection m){
+	Board board;
+
+	public SendingThread(MyConnection m, Board board){
 		this.m = m;
+		this.board = board;
 	}
 	
 	public void run(){
 		try{
 			while(true){
-				input = "Something";
+				input = board.message;
 				if(input != null){	
 					boolean sent = m.sendMessage(input);
+					board.message = null;
 				}
 			}
 		}

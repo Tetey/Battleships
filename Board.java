@@ -1,10 +1,15 @@
 import java.util.*;
 
 public class Board{
-	int[][] myBoard; 
-	int[][] opponentBoard;
-	ArrayList<Ship> myShips = new ArrayList<Ship>();
-	String gameStatus;
+	private int[][] myBoard; 
+	private int[][] opponentBoard;
+	//int[] opponentShips; // in order ung ships[ie. ung 0, 1, 2, puro oneblock ships]; if 0, not yet killed, if 1, killed
+	public ArrayList<Ship> myShips = new ArrayList<Ship>();
+	public ArrayList<Ship> opponentShips = new ArrayList<>();
+	
+	public String gameStatus;
+
+	public String message = null;
 
 	public Board(){
 		myBoard = new int[9][9]; //change to size of grid
@@ -29,4 +34,17 @@ public class Board{
 		myShips.add(ship7);
 		myShips.add(ship8);
 	}
+
+	public void setGameStatusToOngoing(){
+		gameStatus = "ongoing";
+	}
+
+	public void setGameStatusToWin(){
+		gameStatus = "win";
+	}
+
+	public void setGameStatusToLose(){
+		gameStatus = "lose";
+	}
+
 }
