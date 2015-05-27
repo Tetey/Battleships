@@ -23,18 +23,18 @@ public class Board{
 	protected static final int BOMBED = 6; //ito lang kailangan ni tetey
 
 	public Board(){
-		myBoard = new int[9][9]; //change to size of grid
-		opponentBoard = new int[9][9]; //change to size of grid
+		myBoard = new int[10][10]; //change to size of grid
+		opponentBoard = new int[10][10]; //change to size of grid
 		gameStatus = "init";
 		
-		Ship ship1 = new Ship(ONEBLOCKSHIP);
-		Ship ship2 = new Ship(ONEBLOCKSHIP);
-		Ship ship3 = new Ship(ONEBLOCKSHIP);
-		Ship ship4 = new Ship(TWOBLOCKSHIP);
-		Ship ship5 = new Ship(TWOBLOCKSHIP);
-		Ship ship6 = new Ship(THREEBLOCKSHIP);
-		Ship ship7 = new Ship(THREEBLOCKSHIP);
-		Ship ship8 = new Ship(FOURBLOCKSHIP);
+		Ship ship1 = new Ship(ONEBLOCKSHIP, 1);
+		Ship ship2 = new Ship(ONEBLOCKSHIP, 2);
+		Ship ship3 = new Ship(ONEBLOCKSHIP, 3) ;
+		Ship ship4 = new Ship(TWOBLOCKSHIP, 4);
+		Ship ship5 = new Ship(TWOBLOCKSHIP, 5);
+		Ship ship6 = new Ship(THREEBLOCKSHIP, 6);
+		Ship ship7 = new Ship(THREEBLOCKSHIP, 7);
+		Ship ship8 = new Ship(FOURBLOCKSHIP, 8);
 
 		myShips.add(ship1);
 		myShips.add(ship2);
