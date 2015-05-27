@@ -1,8 +1,10 @@
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -14,6 +16,7 @@ import java.io.IOException;
 import java.io.Serializable;
 
 import javax.imageio.ImageIO;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -66,6 +69,17 @@ public class BoardUI extends JFrame implements ActionListener{
         
 		Container con = this.getContentPane();
 		con.setLayout(new FlowLayout());
+		panel.setLayout(null);
+		
+		
+		JButton done = new JButton("Done");
+		panel.add(done);
+
+		Insets insets = panel.getInsets();
+		Dimension size = done.getPreferredSize();
+		done.setBounds(310 + insets.left, 365 + insets.top,
+		             size.width, size.height);
+		
 		setContentPane(panel);
 		setSize(800, 420);
 		
