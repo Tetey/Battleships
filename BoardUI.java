@@ -287,12 +287,15 @@ public class BoardUI extends JFrame implements ActionListener{
 				int xIndex = 0, yIndex = 0, counter = 0, i;
 				int width = TILELENGTH*lastShip.xSize;
 				int height = TILELENGTH*lastShip.ySize;
+				Rectangle curr;
 				Rectangle drag = new Rectangle(lastShip.XCoor, lastShip.YCoor, width, height);
 				for(i = 0; i <= 7; i++){
 					currShip = board.myShips.get(i);
-					Rectangle curr = new Rectangle(lastShip.XCoor, lastShip.YCoor, width, height);
+					width = TILELENGTH*currShip.xSize;
+					height = TILELENGTH*currShip.ySize;
+					curr = new Rectangle(currShip.XCoor, currShip.YCoor, width, height);
 					if(drag.intersects(curr)){
-						//System.out.println(i + " i ");
+						System.out.println(i + " i ");
 						startingX = e.getX();
 						startingY = e.getY();
 						counter++;
@@ -305,10 +308,10 @@ public class BoardUI extends JFrame implements ActionListener{
 					dragging = false;
 				}else{
 					System.out.println(counter + " tis trruuu ");
-					xIndex = (currShip.XCoor-STARTXBORDER1)/TILELENGTH;
-					yIndex = (currShip.YCoor-STARTYBORDER)/TILELENGTH;
-					currShip.XCoor = getPlayerTileXPosition(xIndex);
-					currShip.YCoor = getTileYPosition(yIndex);
+					xIndex = (e.getX()-STARTXBORDER1)/TILELENGTH;
+					yIndex = (e.getY()-STARTYBORDER)/TILELENGTH;
+					lastShip.XCoor = getPlayerTileXPosition(xIndex);
+					lastShip.YCoor = getTileYPosition(yIndex);
 					dragging = false;
 				}
 				dragging = false;
