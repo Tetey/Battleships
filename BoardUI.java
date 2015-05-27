@@ -38,6 +38,9 @@ public class BoardUI extends JFrame implements ActionListener{
 	int startingY;
 	int currentX;
 	int currentY;
+	Ship lastShip;
+	int lastX;
+	int lastY;
 		
 	private boolean dragging = false;
 	private Board board;
@@ -242,6 +245,9 @@ public class BoardUI extends JFrame implements ActionListener{
 						//System.out.println(i + " i ");
 						startingX = e.getX();
 						startingY = e.getY();
+						lastX = currShip.XCoor;
+						lastY = currShip.YCoor;
+						lastShip = currShip;
 						break;
 					}
 				}
@@ -277,28 +283,32 @@ public class BoardUI extends JFrame implements ActionListener{
 				}
 			}
 			public void mouseReleased(MouseEvent e){
-				int xIndex = 0, yIndex = 0;
-				if(dragging){
+				int xIndex = 0, yIndex = 0, counter = 0;
 					int i;
 					for(i = 0; i <= 7; i++){
 						if(withinCoordinates(currShip = board.myShips.get(i), e.getX(), e.getY())){
 							//System.out.println(i + " i ");
 							startingX = e.getX();
 							startingY = e.getY();
-							break;
+							counter++;
 						}
 					}
-					if(i==8||i==board.myShips.indexOf(currShip)){
+					if(counter>1){
+						System.out.println(counter + " tis truuu ");
+						lastShip.XCoor = lastX;
+						lastShip.YCoor = lastY;
+						dragging = false;
+					}else{
+						System.out.println(counter + " tis trruuu ");
 						xIndex = (currShip.XCoor-STARTXBORDER1)/TILELENGTH;
 						yIndex = (currShip.YCoor-STARTYBORDER)/TILELENGTH;
 						currShip.XCoor = getPlayerTileXPosition(xIndex);
 						currShip.YCoor = getTileYPosition(yIndex);
 						dragging = false;
-					}else{
-						
 					}
+					dragging = false;
 					repaint();
-				}
+				
 			}
 		}
 		public boolean withinCoordinates(Ship ship, int x, int y) {
