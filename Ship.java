@@ -60,7 +60,16 @@ public class Ship{
 		else
 			ySize = size;
 	}
-
+	public void updateSizes(){
+		if(this.isHorizontal){
+			xSize = size;
+			ySize = 1;
+		}
+		else{
+			xSize = 1;
+			ySize = size;
+		}
+	}
 	public int getXCoordinates(){
 		return BoardUI.STARTXBORDER1 + XPosition*BoardUI.TILELENGTH+1;
 	}
