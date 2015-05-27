@@ -47,7 +47,6 @@ public class Ship{
 			YPosition = 4;
 			isHorizontal = false;
 			break;
-		
 		}
 	}
 }

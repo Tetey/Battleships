@@ -5,7 +5,7 @@ public class Board{
 	protected int[][] opponentBoard;
 	//int[] opponentShips; // in order ung ships[ie. ung 0, 1, 2, puro oneblock ships]; if 0, not yet killed, if 1, killed
 	public ArrayList<Ship> myShips = new ArrayList<Ship>();
-	public ArrayList<Ship> opponentShips = new ArrayList<>();
+	//public ArrayList<Ship> opponentShips = new ArrayList<>();
 	
 	public String gameStatus;
 
@@ -19,9 +19,10 @@ public class Board{
 	protected static final int THREEBLOCKSHIP = 3;
 	protected static final int FOURBLOCKSHIP = 4;
 	protected static final int TILEDEAD = 5; //ito lang kailangan ni tetey
-	protected static final int BOATDEAD = 7;
+	
 	protected static final int BOMBED = 6; //ito lang kailangan ni tetey
-
+	protected static final int BOATDEAD = 7;
+	
 	public Board(){
 		myBoard = new int[10][10]; //change to size of grid
 		opponentBoard = new int[10][10]; //change to size of grid
@@ -57,6 +58,12 @@ public class Board{
 			}
 			else if(temp.size == TWOBLOCKSHIP){
 				myBoard[temp.XPosition][temp.YPosition] = TWOBLOCKSHIP;
+				if(temp.isHorizontal){
+					myBoard[temp.XPosition+1][temp.YPosition] = TWOBLOCKSHIP;
+				}
+				else{
+					myBoard[temp.XPosition][temp.YPosition+1] = TWOBLOCKSHIP;
+				}
 			}
 			else if(temp.size == THREEBLOCKSHIP){
 				myBoard[temp.XPosition][temp.YPosition] = THREEBLOCKSHIP;
