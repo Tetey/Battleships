@@ -12,6 +12,7 @@ public class Board{
 	public String message = null;
 	
 	//PLAYER BOARD CONSTANTS
+
 	protected static final int INITIAL = 0; //ito lang kailangan ni tetey
 	protected static final int ONEBLOCKSHIP = 1;
 	protected static final int TWOBLOCKSHIP = 2;
@@ -58,7 +59,7 @@ public class Board{
 				myBoard[temp.XPosition][temp.YPosition] = TWOBLOCKSHIP;
 			}
 			else if(temp.size == THREEBLOCKSHIP){
-				myBoard[temp.XPosition][temp.YPosition] = THREEEBLOCKSHIP;
+				myBoard[temp.XPosition][temp.YPosition] = THREEBLOCKSHIP;
 			}
 			else if(temp.size == FOURBLOCKSHIP){
 				myBoard[temp.XPosition][temp.YPosition] = FOURBLOCKSHIP;
