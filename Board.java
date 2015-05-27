@@ -5,7 +5,7 @@ public class Board{
 	protected int[][] opponentBoard;
 	//int[] opponentShips; // in order ung ships[ie. ung 0, 1, 2, puro oneblock ships]; if 0, not yet killed, if 1, killed
 	public ArrayList<Ship> myShips = new ArrayList<Ship>();
-	//public ArrayList<Ship> opponentShips = new ArrayList<>();
+	public ArrayList<Ship> opponentShips = new ArrayList<>();
 	
 	public String gameStatus;
 	public String message = null;
@@ -56,7 +56,11 @@ public class Board{
 	//call as soon as done with setup
 	public void setupDone(){
 		setGameStatusToOngoing();
+		initMyBoard();
+		setMessageForSetupDone();
+	}
 
+	public void initMyBoard(){		
 		Ship temp;
 		for(int i = 0; i < myShips.size(); i++){
 			temp = myShips.get(i);
@@ -96,17 +100,81 @@ public class Board{
 					myBoard[temp.XPosition][temp.YPosition+3] = FOURBLOCKSHIP;
 				}
 			}  
+
 		}
-		setMessageForSetupDone();
+	}
+
+	public void initOpponentBoard(){
+		Ship temp;
+		for(int i = 0; i < opponentShips.size(); i++){
+			temp = opponentShips.get(i);
+			if(temp.size == ONEBLOCKSHIP){
+				myBoard[temp.XPosition][temp.YPosition] = ONEBLOCKSHIP;
+			}
+			else if(temp.size == TWOBLOCKSHIP){
+				myBoard[temp.XPosition][temp.YPosition] = TWOBLOCKSHIP;
+				if(temp.isHorizontal){
+					myBoard[temp.XPosition+1][temp.YPosition] = TWOBLOCKSHIP;
+				}
+				else{
+					myBoard[temp.XPosition][temp.YPosition+1] = TWOBLOCKSHIP;
+				}
+			}
+			else if(temp.size == THREEBLOCKSHIP){
+				myBoard[temp.XPosition][temp.YPosition] = THREEBLOCKSHIP;
+				if(temp.isHorizontal){
+					myBoard[temp.XPosition+1][temp.YPosition] = THREEBLOCKSHIP;
+					myBoard[temp.XPosition+2][temp.YPosition] = THREEBLOCKSHIP;
+				}
+				else{
+					myBoard[temp.XPosition][temp.YPosition+1] = THREEBLOCKSHIP;
+					myBoard[temp.XPosition][temp.YPosition+2] = THREEBLOCKSHIP;
+				}
+			}
+			else if(temp.size == FOURBLOCKSHIP){
+				myBoard[temp.XPosition][temp.YPosition] = FOURBLOCKSHIP;
+				if(temp.isHorizontal){
+					myBoard[temp.XPosition+1][temp.YPosition] = FOURBLOCKSHIP;
+					myBoard[temp.XPosition+2][temp.YPosition] = FOURBLOCKSHIP;
+					myBoard[temp.XPosition+3][temp.YPosition] = FOURBLOCKSHIP;
+				}
+				else{
+					myBoard[temp.XPosition][temp.YPosition+1] = FOURBLOCKSHIP;
+					myBoard[temp.XPosition][temp.YPosition+2] = FOURBLOCKSHIP;
+					myBoard[temp.XPosition][temp.YPosition+3] = FOURBLOCKSHIP;
+				}
+			}  
+		}
 	}
 
 	public void setMessageForSetupDone(){
-		message = "Setup Done";
-		for(int i = 0; i < 10; i++){
-			for(int j = 0; j < 10; j++){
-				message = message + " " + Integer.toString(myBoard[i][j]);
-			}
+		String messageToSend = "Setup Done";
+		Ship temp;
+		for(int i = 0; i < myShips.size(); i++){
+			temp = myShips.get(i);
+			messageToSend = messageToSend + " " + Integer.toString(temp.size) + " " + temp.isHorizontal + " " + Integer.toString(temp.XPosition) + " " + Integer.toString(temp.YPosition); 
 		}
+		message = messageToSend;
+	}
+
+	public void setOpponentShips(String str){
+		String[] ships = str.split(" ");
+		int index = 0;
+
+		for(int i = 0; i < 8; i++){
+			index = i*4;
+			Ship ship = new Ship();
+			ship.size = ships[index];
+			if(ships[index+1].equals("true")){
+				ship.isHorizontal = true;
+			}
+			else{
+				ship.isHorizontal = false;
+			}
+			ship.XPosition = Integer.parseInt(ships[index+2]);
+			ship.YPosition = Integer.parseInt(ships[index+3]);
+		}
+		initOpponentBoard();
 	}
 
 	public void setMyTurn(boolean b){
