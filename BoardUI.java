@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Insets;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -283,32 +284,35 @@ public class BoardUI extends JFrame implements ActionListener{
 				}
 			}
 			public void mouseReleased(MouseEvent e){
-				int xIndex = 0, yIndex = 0, counter = 0;
-					int i;
-					for(i = 0; i <= 7; i++){
-						if(withinCoordinates(currShip = board.myShips.get(i), e.getX(), e.getY())){
-							//System.out.println(i + " i ");
-							startingX = e.getX();
-							startingY = e.getY();
-							counter++;
-						}
+				int xIndex = 0, yIndex = 0, counter = 0, i;
+				int width = TILELENGTH*lastShip.xSize;
+				int height = TILELENGTH*lastShip.ySize;
+				Rectangle drag = new Rectangle(lastShip.XCoor, lastShip.YCoor, width, height);
+				for(i = 0; i <= 7; i++){
+					currShip = board.myShips.get(i);
+					Rectangle curr = new Rectangle(lastShip.XCoor, lastShip.YCoor, width, height);
+					if(drag.intersects(curr)){
+						//System.out.println(i + " i ");
+						startingX = e.getX();
+						startingY = e.getY();
+						counter++;
 					}
-					if(counter>1){
-						System.out.println(counter + " tis truuu ");
-						lastShip.XCoor = lastX;
-						lastShip.YCoor = lastY;
-						dragging = false;
-					}else{
-						System.out.println(counter + " tis trruuu ");
-						xIndex = (currShip.XCoor-STARTXBORDER1)/TILELENGTH;
-						yIndex = (currShip.YCoor-STARTYBORDER)/TILELENGTH;
-						currShip.XCoor = getPlayerTileXPosition(xIndex);
-						currShip.YCoor = getTileYPosition(yIndex);
-						dragging = false;
-					}
+				}
+				if(counter>1){
+					System.out.println(counter + " tis truuu ");
+					lastShip.XCoor = lastX;
+					lastShip.YCoor = lastY;
 					dragging = false;
-					repaint();
-				
+				}else{
+					System.out.println(counter + " tis trruuu ");
+					xIndex = (currShip.XCoor-STARTXBORDER1)/TILELENGTH;
+					yIndex = (currShip.YCoor-STARTYBORDER)/TILELENGTH;
+					currShip.XCoor = getPlayerTileXPosition(xIndex);
+					currShip.YCoor = getTileYPosition(yIndex);
+					dragging = false;
+				}
+				dragging = false;
+				repaint();		
 			}
 		}
 		public boolean withinCoordinates(Ship ship, int x, int y) {
