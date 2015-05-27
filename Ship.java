@@ -3,8 +3,8 @@ public class Ship{
 	public String orientation; //horizontal, vertical
 	public int sunk; //1 if sunk 
 
-	public int gridRowPos;
-	public int gridColPos;
+	public int XPosition;
+	public int YPosition;
 
 	public Ship(int size){
 		this.size = size;
