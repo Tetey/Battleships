@@ -109,8 +109,8 @@ public class Board{
 		}
 	}
 
-	public void signalStart(){
-		message = "I'm ready!";
+	public void setMyTurn(boolean b){
+		isMyTurn = b;
 	}
 
 	public void setGameStatusToOngoing(){

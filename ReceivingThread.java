@@ -29,6 +29,9 @@ public class ReceivingThread extends Thread{
 					}
 					board.signalStart();
 				}
+				else if(msg.equals("Your Turn")){
+					board.setMyTurn(true);
+				}
 			}
 		}
 		catch(Exception e){

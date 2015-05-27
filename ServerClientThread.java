@@ -17,6 +17,7 @@ public class ServerClientThread extends Thread{
 	public void run(){		
 		try{
 			ServerClientThread tempSCT;
+			boolean gameStart = false;
 			while(true){
 				String msg = m.getMessage();
 				if(msg.indexOf("Setup Done") != -1){
@@ -31,11 +32,26 @@ public class ServerClientThread extends Thread{
 								tempSCT.m.sendMessage(msg);
 							}
 						}
+						start = true;
+						for(int i = 0; i < aSCT.size(); i++){
+							tempSCT = aSCT.get(i);
+							if(tempSCT != this){
+								//means tapos na magset up both players
+								if(tempSCT.start){
+									gameStart = true;
+								}
+							}
+						}
+						if(gameStart){
+							for(int i = 0; i < aSCT.size(); i++){
+								tempSCT = aSCT.get(i);
+								if(tempSCT.playerNum == 1){
+									tempSCT.sendMessage("Your Turn");
+								}
+							}
+						}
 					}
-				}
-				if(msg.indexOf("I am ready!") != -1){
-					
-				}
+				}								
 				//all server processing message from client stuff put here
 			}
 			
