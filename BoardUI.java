@@ -97,7 +97,7 @@ public class BoardUI extends JFrame implements ActionListener{
 					drawBackgroundImage(g);
 					drawGridLines(g);
 					//drawBoats();
-					//drawPlayerBoardStatus(g);
+					drawBoardStatus(g);
 				}catch(IOException e){
 					
 				}
@@ -107,13 +107,17 @@ public class BoardUI extends JFrame implements ActionListener{
 			}
 		}
 		
-		private void drawPlayerBoardStatus(Graphics g) throws IOException{
+		private void drawBoardStatus(Graphics g) throws IOException{
 			for(int i = 0; i <= 9; i++){
 				for(int j = 0; j <= 9; j++){
 					if(playerBoard[i][j]==Board.TILEDEAD)
 						g.drawImage(ImageIO.read(new File("Images" + File.separator + "tiledead.png")), getPlayerTileXPosition(i), getTileYPosition(j), TILELENGTH,TILELENGTH, null);
-					if(playerBoard[i][j]==Board.BOMBED)
+					else if(playerBoard[i][j]==Board.BOMBED)
 						g.drawImage(ImageIO.read(new File("Images" + File.separator + "tilebombed.png")), getPlayerTileXPosition(i), getTileYPosition(j), TILELENGTH,TILELENGTH, null);
+					if(opponentBoard[i][j]==Board.TILEDEAD)
+						g.drawImage(ImageIO.read(new File("Images" + File.separator + "tiledead.png")), getOpponentTileXPosition(i), getTileYPosition(j), TILELENGTH,TILELENGTH, null);
+					else if(opponentBoard[i][j]==Board.BOMBED)
+						g.drawImage(ImageIO.read(new File("Images" + File.separator + "tilebombed.png")), getOpponentTileXPosition(i), getTileYPosition(j), TILELENGTH,TILELENGTH, null);
 				}
 			}
 		}

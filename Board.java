@@ -1,8 +1,8 @@
 import java.util.*;
 
 public class Board{
-	private int[][] myBoard; 
-	private int[][] opponentBoard;
+	protected int[][] myBoard; 
+	protected int[][] opponentBoard;
 	//int[] opponentShips; // in order ung ships[ie. ung 0, 1, 2, puro oneblock ships]; if 0, not yet killed, if 1, killed
 	public ArrayList<Ship> myShips = new ArrayList<Ship>();
 	public ArrayList<Ship> opponentShips = new ArrayList<>();
@@ -14,8 +14,7 @@ public class Board{
 	//PLAYER BOARD CONSTANTS
 	protected static final int INITIAL = 0;
 	protected static final int TILEDEAD = 1;
-	protected static final int BOATDEAD = 2;
-	protected static final int BOMBED = 3;
+	protected static final int BOMBED = 2;
 
 	public Board(){
 		myBoard = new int[9][9]; //change to size of grid
