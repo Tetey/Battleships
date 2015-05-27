@@ -1,8 +1,8 @@
 import java.util.*;
 
 public class Board{
-	protected int[][] myBoard; 
-	protected int[][] opponentBoard;
+	protected String[][] myBoard; 
+	protected String[][] opponentBoard;
 	//int[] opponentShips; // in order ung ships[ie. ung 0, 1, 2, puro oneblock ships]; if 0, not yet killed, if 1, killed
 	public ArrayList<Ship> myShips = new ArrayList<Ship>();
 	public ArrayList<Ship> opponentShips = new ArrayList<>();
@@ -29,18 +29,26 @@ public class Board{
 	protected static final int BOATDEAD4 = 10;
 
 	public Board(){
-		myBoard = new int[10][10]; //change to size of grid
-		opponentBoard = new int[10][10]; //change to size of grid
+		myBoard = new String[10][10]; //change to size of grid
+		opponentBoard = new String[10][10]; //change to size of grid
 		gameStatus = "init";
 		
-		Ship ship1 = new Ship(ONEBLOCKSHIP, 1);
-		Ship ship2 = new Ship(ONEBLOCKSHIP, 2);
-		Ship ship3 = new Ship(ONEBLOCKSHIP, 3) ;
-		Ship ship4 = new Ship(TWOBLOCKSHIP, 4);
-		Ship ship5 = new Ship(TWOBLOCKSHIP, 5);
-		Ship ship6 = new Ship(THREEBLOCKSHIP, 6);
-		Ship ship7 = new Ship(THREEBLOCKSHIP, 7);
-		Ship ship8 = new Ship(FOURBLOCKSHIP, 8);
+		for(int i = 0; i < 10; i++){
+			for(int j = 0; j < 10; j++){
+				myBoard[i][j] = "null";
+				opponentBoard[i][j] = "null";
+			}
+		}
+
+
+		Ship ship1 = new Ship(ONEBLOCKSHIP, 1, "First");
+		Ship ship2 = new Ship(ONEBLOCKSHIP, 2, "Second");
+		Ship ship3 = new Ship(ONEBLOCKSHIP, 3, "Third");
+		Ship ship4 = new Ship(TWOBLOCKSHIP, 4, "Fourth");
+		Ship ship5 = new Ship(TWOBLOCKSHIP, 5, "Fifth");
+		Ship ship6 = new Ship(THREEBLOCKSHIP, 6, "Sixth");
+		Ship ship7 = new Ship(THREEBLOCKSHIP, 7, "Seventh");
+		Ship ship8 = new Ship(FOURBLOCKSHIP, 8, "Eighth");
 
 		myShips.add(ship1);
 		myShips.add(ship2);
@@ -65,39 +73,39 @@ public class Board{
 		for(int i = 0; i < myShips.size(); i++){
 			temp = myShips.get(i);
 			if(temp.size == ONEBLOCKSHIP){
-				myBoard[temp.XPosition][temp.YPosition] = ONEBLOCKSHIP;
+				myBoard[temp.XPosition][temp.YPosition] = temp.shipName;
 			}
 			else if(temp.size == TWOBLOCKSHIP){
-				myBoard[temp.XPosition][temp.YPosition] = TWOBLOCKSHIP;
+				myBoard[temp.XPosition][temp.YPosition] = temp.shipName;
 				if(temp.isHorizontal){
-					myBoard[temp.XPosition+1][temp.YPosition] = TWOBLOCKSHIP;
+					myBoard[temp.XPosition+1][temp.YPosition] = temp.shipName;
 				}
 				else{
-					myBoard[temp.XPosition][temp.YPosition+1] = TWOBLOCKSHIP;
+					myBoard[temp.XPosition][temp.YPosition+1] = temp.shipName;
 				}
 			}
 			else if(temp.size == THREEBLOCKSHIP){
-				myBoard[temp.XPosition][temp.YPosition] = THREEBLOCKSHIP;
+				myBoard[temp.XPosition][temp.YPosition] = temp.shipName;
 				if(temp.isHorizontal){
-					myBoard[temp.XPosition+1][temp.YPosition] = THREEBLOCKSHIP;
-					myBoard[temp.XPosition+2][temp.YPosition] = THREEBLOCKSHIP;
+					myBoard[temp.XPosition+1][temp.YPosition] = temp.shipName;
+					myBoard[temp.XPosition+2][temp.YPosition] = temp.shipName;
 				}
 				else{
-					myBoard[temp.XPosition][temp.YPosition+1] = THREEBLOCKSHIP;
-					myBoard[temp.XPosition][temp.YPosition+2] = THREEBLOCKSHIP;
+					myBoard[temp.XPosition][temp.YPosition+1] = temp.shipName;
+					myBoard[temp.XPosition][temp.YPosition+2] = temp.shipName;
 				}
 			}
 			else if(temp.size == FOURBLOCKSHIP){
 				myBoard[temp.XPosition][temp.YPosition] = FOURBLOCKSHIP;
 				if(temp.isHorizontal){
-					myBoard[temp.XPosition+1][temp.YPosition] = FOURBLOCKSHIP;
-					myBoard[temp.XPosition+2][temp.YPosition] = FOURBLOCKSHIP;
-					myBoard[temp.XPosition+3][temp.YPosition] = FOURBLOCKSHIP;
+					myBoard[temp.XPosition+1][temp.YPosition] = temp.shipName;
+					myBoard[temp.XPosition+2][temp.YPosition] = temp.shipName;
+					myBoard[temp.XPosition+3][temp.YPosition] = temp.shipName;
 				}
 				else{
-					myBoard[temp.XPosition][temp.YPosition+1] = FOURBLOCKSHIP;
-					myBoard[temp.XPosition][temp.YPosition+2] = FOURBLOCKSHIP;
-					myBoard[temp.XPosition][temp.YPosition+3] = FOURBLOCKSHIP;
+					myBoard[temp.XPosition][temp.YPosition+1] = temp.shipName;
+					myBoard[temp.XPosition][temp.YPosition+2] = temp.shipName;
+					myBoard[temp.XPosition][temp.YPosition+3] = temp.shipName;
 				}
 			}  
 
@@ -109,39 +117,39 @@ public class Board{
 		for(int i = 0; i < opponentShips.size(); i++){
 			temp = opponentShips.get(i);
 			if(temp.size == ONEBLOCKSHIP){
-				myBoard[temp.XPosition][temp.YPosition] = ONEBLOCKSHIP;
+				myBoard[temp.XPosition][temp.YPosition] = temp.shipName;
 			}
 			else if(temp.size == TWOBLOCKSHIP){
-				myBoard[temp.XPosition][temp.YPosition] = TWOBLOCKSHIP;
+				myBoard[temp.XPosition][temp.YPosition] = temp.shipName;
 				if(temp.isHorizontal){
-					myBoard[temp.XPosition+1][temp.YPosition] = TWOBLOCKSHIP;
+					myBoard[temp.XPosition+1][temp.YPosition] = temp.shipName;
 				}
 				else{
-					myBoard[temp.XPosition][temp.YPosition+1] = TWOBLOCKSHIP;
+					myBoard[temp.XPosition][temp.YPosition+1] = temp.shipName;
 				}
 			}
 			else if(temp.size == THREEBLOCKSHIP){
-				myBoard[temp.XPosition][temp.YPosition] = THREEBLOCKSHIP;
+				myBoard[temp.XPosition][temp.YPosition] = temp.shipName;
 				if(temp.isHorizontal){
-					myBoard[temp.XPosition+1][temp.YPosition] = THREEBLOCKSHIP;
-					myBoard[temp.XPosition+2][temp.YPosition] = THREEBLOCKSHIP;
+					myBoard[temp.XPosition+1][temp.YPosition] = temp.shipName;
+					myBoard[temp.XPosition+2][temp.YPosition] = temp.shipName;
 				}
 				else{
-					myBoard[temp.XPosition][temp.YPosition+1] = THREEBLOCKSHIP;
-					myBoard[temp.XPosition][temp.YPosition+2] = THREEBLOCKSHIP;
+					myBoard[temp.XPosition][temp.YPosition+1] = temp.shipName;
+					myBoard[temp.XPosition][temp.YPosition+2] = temp.shipName;
 				}
 			}
 			else if(temp.size == FOURBLOCKSHIP){
-				myBoard[temp.XPosition][temp.YPosition] = FOURBLOCKSHIP;
+				myBoard[temp.XPosition][temp.YPosition] = temp.shipName;
 				if(temp.isHorizontal){
-					myBoard[temp.XPosition+1][temp.YPosition] = FOURBLOCKSHIP;
-					myBoard[temp.XPosition+2][temp.YPosition] = FOURBLOCKSHIP;
-					myBoard[temp.XPosition+3][temp.YPosition] = FOURBLOCKSHIP;
+					myBoard[temp.XPosition+1][temp.YPosition] = temp.shipName;
+					myBoard[temp.XPosition+2][temp.YPosition] = temp.shipName;
+					myBoard[temp.XPosition+3][temp.YPosition] = temp.shipName;
 				}
 				else{
-					myBoard[temp.XPosition][temp.YPosition+1] = FOURBLOCKSHIP;
-					myBoard[temp.XPosition][temp.YPosition+2] = FOURBLOCKSHIP;
-					myBoard[temp.XPosition][temp.YPosition+3] = FOURBLOCKSHIP;
+					myBoard[temp.XPosition][temp.YPosition+1] = temp.shipName;
+					myBoard[temp.XPosition][temp.YPosition+2] = temp.shipName;
+					myBoard[temp.XPosition][temp.YPosition+3] = temp.shipName;
 				}
 			}  
 		}
@@ -152,7 +160,7 @@ public class Board{
 		Ship temp;
 		for(int i = 0; i < myShips.size(); i++){
 			temp = myShips.get(i);
-			messageToSend = messageToSend + " " + Integer.toString(temp.size) + " " + temp.isHorizontal + " " + Integer.toString(temp.XPosition) + " " + Integer.toString(temp.YPosition); 
+			messageToSend = messageToSend + " " + temp.shipName + " " + Integer.toString(temp.size) + " " + temp.isHorizontal + " " + Integer.toString(temp.XPosition) + " " + Integer.toString(temp.YPosition); 
 		}
 		message = messageToSend;
 	}
@@ -162,20 +170,30 @@ public class Board{
 		int index = 0;
 
 		for(int i = 0; i < 8; i++){
-			index = i*4;
+			index = i*5;
 			Ship ship = new Ship();
-			ship.size = ships[index];
-			if(ships[index+1].equals("true")){
+			ship.shipName = ships[index]
+			ship.size = ships[index+1];
+			if(ships[index+2].equals("true")){
 				ship.isHorizontal = true;
 			}
 			else{
 				ship.isHorizontal = false;
 			}
-			ship.XPosition = Integer.parseInt(ships[index+2]);
-			ship.YPosition = Integer.parseInt(ships[index+3]);
+			ship.XPosition = Integer.parseInt(ships[index+3]);
+			ship.YPosition = Integer.parseInt(ships[index+4]);
 		}
 		initOpponentBoard();
 	}
+
+	public void sendMoveToOpponent(int XPosition, int YPosition){
+
+	}
+
+	public void evaluateTurn(int x, int y){
+		
+	}
+
 
 	public void setMyTurn(boolean b){
 		isMyTurn = b;

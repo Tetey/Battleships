@@ -3,6 +3,8 @@ public class Ship{
 	public boolean isHorizontal; //horizontal, vertical
 	public int sunk; //1 if sunk 
 
+	protected String shipName;
+
 	public int XPosition;
 	public int YPosition;
 	public int xSize = 1;
@@ -11,8 +13,8 @@ public class Ship{
 	protected int XCoor = 0;
 	protected int YCoor = 0;
 	
-	public Ship(int size, int posInit){
-		
+	public Ship(int size, int posInit, String shipName){
+		this.shipName = shipName;
 		this.size = size;
 		isHorizontal = true; //change to default orientation of ship
 		sunk = 0;
