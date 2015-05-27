@@ -96,7 +96,7 @@ public class Board{
 				}
 			}
 			else if(temp.size == FOURBLOCKSHIP){
-				myBoard[temp.XPosition][temp.YPosition] = FOURBLOCKSHIP;
+				myBoard[temp.XPosition][temp.YPosition] = temp.shipName;
 				if(temp.isHorizontal){
 					myBoard[temp.XPosition+1][temp.YPosition] = temp.shipName;
 					myBoard[temp.XPosition+2][temp.YPosition] = temp.shipName;
@@ -172,8 +172,8 @@ public class Board{
 		for(int i = 0; i < 8; i++){
 			index = i*5;
 			Ship ship = new Ship();
-			ship.shipName = ships[index]
-			ship.size = ships[index+1];
+			ship.shipName = ships[index];
+			ship.size = Integer.parseInt(ships[index+1]);
 			ship.sunk = ship.size;
 			if(ships[index+2].equals("true")){
 				ship.isHorizontal = true;
@@ -250,6 +250,7 @@ public class Board{
 			setGameStatusToLose();
 			iWin = false;
 			message = "I lose";
+			setMyTurn(false);
 			//send message na end game na, win lose
 		}
 		else{
@@ -263,6 +264,7 @@ public class Board{
 				setGameStatusToWin();
 				opponentWin = false;
 				message = "I win";
+				setMyTurn(false);
 				//send message na end game na, win lose
 			}
 			else{
@@ -287,6 +289,7 @@ public class Board{
 				if(draw){
 					setGameStatusToDraw();
 					message = "Draw";
+					setMyTurn(false);
 					//send message an end game na, draw
 				}
 			}

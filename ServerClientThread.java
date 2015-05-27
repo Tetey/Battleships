@@ -46,7 +46,7 @@ public class ServerClientThread extends Thread{
 							for(int i = 0; i < aSCT.size(); i++){
 								tempSCT = aSCT.get(i);
 								if(tempSCT.playerNum == 1){
-									tempSCT.sendMessage("Your Turn");
+									tempSCT.m.sendMessage("Your Turn");
 								}
 							}
 						}
@@ -61,7 +61,36 @@ public class ServerClientThread extends Thread{
 							tempSCT.m.sendMessage(msg);
 						}
 					}
-				}					
+				}
+
+				if(msg.equals("I win")){
+					for(int i = 0; i < aSCT.size(); i++){
+						tempSCT = aSCT.get(i);
+						if(tempSCT != this){
+							tempSCT.m.sendMessage("You lose");
+							break;
+						}
+					}
+				}	
+				else if(msg.equals("I lose")){
+					for(int i = 0; i < aSCT.size(); i++){
+						tempSCT = aSCT.get(i);
+						if(tempSCT != this){
+							tempSCT.m.sendMessage("You win");
+							break;
+						}
+					}
+
+				}	
+				else if(msg.equals("Draw")){
+					for(int i = 0; i < aSCT.size(); i++){
+						tempSCT = aSCT.get(i);
+						if(tempSCT != this){
+							tempSCT.m.sendMessage("Draw");
+							break;
+						}
+					}
+				}			
 
 				//all server processing message from client stuff put here
 			}

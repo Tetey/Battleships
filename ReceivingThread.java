@@ -32,6 +32,18 @@ public class ReceivingThread extends Thread{
 					int y = Integer.parseInt(temp[1]);
 					board.evaluateOpponentTurn(x, y);
 				}
+				else if(msg.equals("You win")){
+					board.setGameStatusToWin();
+					board.setMyTurn(false);
+				}
+				else if(msg.equals("You lose")){
+					board.setGameStatusToLose();
+					board.setMyTurn(false);
+				}
+				else if(msg.equals("Draw")){
+					board.setGameStatusToDraw();
+					board.setMyTurn(false); //change to variable like, end game?
+				}
 			}
 		}
 		catch(Exception e){

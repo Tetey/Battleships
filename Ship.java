@@ -64,6 +64,15 @@ public class Ship{
 		else
 			ySize = size;
 	}
+
+	public Ship(){
+		sunk = 0;
+		isHorizontal = true;
+		size = 0;
+		XPosition = 0;
+		YPosition = 0;
+		shipName = "Default";
+	}
 	public void updateSizes(){
 		if(this.isHorizontal){
 			xSize = size;
