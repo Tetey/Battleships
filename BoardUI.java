@@ -27,13 +27,23 @@ import javax.swing.KeyStroke;
 
 public class BoardUI extends JFrame implements ActionListener{
 	private static final long serialVersionUID = -7193663594390472688L;
-	private static final int TILELENGTH = 35;
-	private static final int STARTXBORDER1 = 30;
-	private static final int STARTXBORDER2 = STARTXBORDER1+(11*TILELENGTH);
-	private static final int STARTYBORDER = 33-24;
-	Board board;
-	int[][] playerBoard;
-	int[][] opponentBoard;
+	protected static final int TILELENGTH = 35;
+	protected static final int STARTXBORDER1 = 30;
+	protected static final int STARTXBORDER2 = STARTXBORDER1+(11*TILELENGTH);
+	protected static final int STARTYBORDER = 33-24;
+	
+	//dragging variables
+	private int refreshCounter = 0;
+	private static final int refreshRate = 3;
+	int startingX;
+	int startingY;
+	int currentX;
+	int currentY;
+		
+	private boolean dragging = false;
+	private Board board;
+	private int[][] playerBoard;
+	private int[][] opponentBoard;
 	
 
 	public BoardUI(){
@@ -73,6 +83,13 @@ public class BoardUI extends JFrame implements ActionListener{
 		
 		
 		JButton done = new JButton("Done");
+		done.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+            	board.isSetUpDone = true;
+            	board.setupDone();
+            	done.setEnabled(false);
+            }
+        });   
 		panel.add(done);
 
 		Insets insets = panel.getInsets();
@@ -134,16 +151,11 @@ public class BoardUI extends JFrame implements ActionListener{
 			g.setColor(Color.BLUE);
 			for(int i = 0; i <= 7; i++){
 				currShip = board.myShips.get(i);
-				xPos = getPlayerTileXPosition(currShip.XPosition);
-				yPos = getTileYPosition(currShip.YPosition);
-				size = currShip.size;
-				if(currShip.isHorizontal)
-					xSize = size;
-				else
-					ySize = size;
-				drawBorderedRect(xPos, yPos, xSize, ySize, g);
+				xPos = currShip.XCoor;
+				yPos = currShip.YCoor ;
+				drawBorderedRect(xPos, yPos, currShip.xSize, currShip.ySize, g);
 				
-				System.out.println("yPos: " + yPos + " xPos: " + xPos + " ySize: " + ySize + " xSize: " + xSize);
+				//System.out.println("yPos: " + yPos + " xPos: " + xPos + " ySize: " + ySize + " xSize: " + xSize);
 				xPos = 0;
 				yPos = 0;
 				size = 0;
@@ -206,10 +218,72 @@ public class BoardUI extends JFrame implements ActionListener{
 			}
 		}
 		private class MouseReader extends MouseAdapter implements MouseMotionListener{
+			Ship currShip = null;
 			public void mouseClicked(MouseEvent e){
+				for(int i = 0; i <= 7; i++){
+					if(withinCoordinates(currShip = board.myShips.get(i), e.getX(), e.getY())){
+						System.out.println(i + " i ");
+						break;
+					}
+				}
+				System.out.println("x: "+ e.getX() + " y: " +  e.getY() );
 				repaint();
-				System.out.println("x: " + e.getX() + " y: " + e.getY());
 			}
+			public void mousePressed(MouseEvent e){
+				for(int i = 0; i <= 7; i++){
+					if(withinCoordinates(currShip = board.myShips.get(i), e.getX(), e.getY())){
+						System.out.println(i + " i ");
+						startingX = e.getX();
+						startingY = e.getY();
+						break;
+					}
+				}
+				dragging = true;
+			}
+			public void mouseDragged(MouseEvent e){
+				if(!board.isSetUpDone){//YOU CAN DRAG YAY
+					if(!dragging){
+						for(int i = 0; i <= 7; i++){
+							if(withinCoordinates(currShip = board.myShips.get(i), e.getX(), e.getY())){
+								System.out.println(i + " i ");
+								startingX = e.getX();
+								startingY = e.getY();
+								break;
+							}
+						}
+						dragging = true;
+					}
+					if (dragging){
+						if (refreshCounter >= refreshRate){
+							System.out.println("here");
+							currShip.XCoor = currShip.XCoor + e.getX() - startingX;
+							currShip.YCoor = currShip.YCoor + e.getY() - startingY;
+							startingX = e.getX();
+							startingY = e.getY();
+							refreshCounter = 0;
+							repaint();
+						}
+						else{
+							refreshCounter++;
+						}
+					}
+				}
+			}
+			public void mouseReleased(MouseEvent e){
+				int xIndex = 0, yIndex = 0;
+				if(dragging){
+					xIndex = (currShip.XCoor-STARTXBORDER1)/TILELENGTH;
+					yIndex = (currShip.YCoor-STARTYBORDER)/TILELENGTH;
+					currShip.XCoor = getPlayerTileXPosition(xIndex);
+					currShip.YCoor = getTileYPosition(yIndex);
+					dragging = false;
+					repaint();
+				}
+			}
+		}
+		public boolean withinCoordinates(Ship ship, int x, int y) {
+			//System.out.println("x: " + e.getX() + " y: " + e.getY() + " YCoor: " + ship.YCoor + " YEnd: " + (ship.YCoor+BoardUI.TILELENGTH*ship.xSize) + " XCoor")
+			return (x>= ship.XCoor && x <= (ship.XCoor+BoardUI.TILELENGTH*ship.xSize) && y >= ship.YCoor && y <=ship.YCoor+BoardUI.TILELENGTH*ship.ySize);
 		}
 		
 	}
