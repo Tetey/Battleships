@@ -17,6 +17,11 @@ public class ServerClientThread extends Thread{
 		try{
 			while(true){
 				String msg = m.getMessage();
+				if(msg.equals("Setup Done")){
+					if(aSCT.size() == 1){
+						m.sendMessage("Still Alone");
+					}
+				}
 				//all server processing message from client stuff put here
 			}
 			

@@ -64,6 +64,7 @@ public class Board{
 				myBoard[temp.XPosition][temp.YPosition] = FOURBLOCKSHIP;
 			}  
 		}
+		message = "Setup Done";
 	}
 
 	public void setGameStatusToOngoing(){
