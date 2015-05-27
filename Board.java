@@ -19,10 +19,13 @@ public class Board{
 	protected static final int THREEBLOCKSHIP = 3;
 	protected static final int FOURBLOCKSHIP = 4;
 	protected static final int TILEDEAD = 5; //ito lang kailangan ni tetey
-	
 	protected static final int BOMBED = 6; //ito lang kailangan ni tetey
-	protected static final int BOATDEAD = 7;
 	
+	protected static final int BOATDEAD1 = 7;
+	protected static final int BOATDEAD2 = 8;
+	protected static final int BOATDEAD3 = 9;
+	protected static final int BOATDEAD4 = 10;
+
 	public Board(){
 		myBoard = new int[10][10]; //change to size of grid
 		opponentBoard = new int[10][10]; //change to size of grid
@@ -45,9 +48,7 @@ public class Board{
 		myShips.add(ship6);
 		myShips.add(ship7);
 		myShips.add(ship8);
-		
-		myBoard[0][2]=TILEDEAD;
-		myBoard[6][7]=BOMBED;
+
 	}
 
 	//call when done with setup
@@ -70,15 +71,33 @@ public class Board{
 			}
 			else if(temp.size == THREEBLOCKSHIP){
 				myBoard[temp.XPosition][temp.YPosition] = THREEBLOCKSHIP;
+				if(temp.isHorizontal){
+					myBoard[temp.XPosition+1][temp.YPosition] = THREEBLOCKSHIP;
+					myBoard[temp.XPosition+2][temp.YPosition] = THREEBLOCKSHIP;
+				}
+				else{
+					myBoard[temp.XPosition][temp.YPosition+1] = THREEBLOCKSHIP;
+					myBoard[temp.XPosition][temp.YPosition+2] = THREEBLOCKSHIP;
+				}
 			}
 			else if(temp.size == FOURBLOCKSHIP){
 				myBoard[temp.XPosition][temp.YPosition] = FOURBLOCKSHIP;
+				if(temp.isHorizontal){
+					myBoard[temp.XPosition+1][temp.YPosition] = FOURBLOCKSHIP;
+					myBoard[temp.XPosition+2][temp.YPosition] = FOURBLOCKSHIP;
+					myBoard[temp.XPosition+3][temp.YPosition] = FOURBLOCKSHIP;
+				}
+				else{
+					myBoard[temp.XPosition][temp.YPosition+1] = FOURBLOCKSHIP;
+					myBoard[temp.XPosition][temp.YPosition+2] = FOURBLOCKSHIP;
+					myBoard[temp.XPosition][temp.YPosition+3] = FOURBLOCKSHIP;
+				}
 			}  
 		}
 		message = "Setup Done";
 		for(int i = 0; i < 10; i++){
 			for(int j = 0; j < 10; j++){
-				message = message + " " + myBoard[i][j].toString();
+				message = message + " " + Integer.toString(myBoard[i][j]);
 			}
 		}
 
