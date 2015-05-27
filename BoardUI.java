@@ -96,8 +96,14 @@ public class BoardUI extends JFrame implements ActionListener{
 			if(!board.gameStatus.equals("end")){
 				try{
 					drawBackgroundImage(g);
-					drawGridLines(g);
+					g.fillRect(STARTXBORDER1-1, STARTYBORDER-1, 10*TILELENGTH+1, 10*TILELENGTH+1);
+					g.fillRect(STARTXBORDER2-1, STARTYBORDER-1, 10*TILELENGTH+1, 10*TILELENGTH+1);
+					g.clearRect(STARTXBORDER1, STARTYBORDER, 10*TILELENGTH-1, 10*TILELENGTH-1);
+					g.clearRect(STARTXBORDER2, STARTYBORDER, 10*TILELENGTH-1, 10*TILELENGTH-1);
+					g.drawRect(STARTXBORDER1, STARTYBORDER, 10*TILELENGTH, 10*TILELENGTH);
+					g.drawRect(STARTXBORDER2, STARTYBORDER, 10*TILELENGTH, 10*TILELENGTH);
 					drawShips(g);
+					drawGridLines(g);
 					drawBoardStatus(g);
 				}catch(IOException e){
 					
@@ -121,8 +127,14 @@ public class BoardUI extends JFrame implements ActionListener{
 					xSize = size;
 				else
 					ySize = size;
-				drawBorderedRect(yPos, xPos, ySize, xSize, g);
+				drawBorderedRect(xPos, yPos, xSize, ySize, g);
+				
 				System.out.println("yPos: " + yPos + " xPos: " + xPos + " ySize: " + ySize + " xSize: " + xSize);
+				xPos = 0;
+				yPos = 0;
+				size = 0;
+				xSize = 1;
+				ySize = 1;
 			}
 				
 		}
@@ -147,11 +159,11 @@ public class BoardUI extends JFrame implements ActionListener{
 		}
 		
 		private int getTileYPosition(int i) {			
-			return STARTYBORDER + i*TILELENGTH;
+			return STARTYBORDER + i*TILELENGTH+1;
 		}
 
 		private int getPlayerTileXPosition(int i) {
-			return STARTXBORDER1 + i*TILELENGTH;
+			return STARTXBORDER1 + i*TILELENGTH+1;
 		}
 
 		private int getOpponentTileXPosition(int i) {
@@ -171,13 +183,7 @@ public class BoardUI extends JFrame implements ActionListener{
 		}
 		private void drawGridLines(Graphics g){
 			
-			g.fillRect(STARTXBORDER1-1, STARTYBORDER-1, 10*TILELENGTH+1, 10*TILELENGTH+1);
-			g.fillRect(STARTXBORDER2-1, STARTYBORDER-1, 10*TILELENGTH+1, 10*TILELENGTH+1);
-			g.clearRect(STARTXBORDER1, STARTYBORDER, 10*TILELENGTH-1, 10*TILELENGTH-1);
-			g.clearRect(STARTXBORDER2, STARTYBORDER, 10*TILELENGTH-1, 10*TILELENGTH-1);
-			g.drawRect(STARTXBORDER1, STARTYBORDER, 10*TILELENGTH, 10*TILELENGTH);
-			g.drawRect(STARTXBORDER2, STARTYBORDER, 10*TILELENGTH, 10*TILELENGTH);
-			
+			g.setColor(Color.BLACK);
 			for(int i = 1; i <= 9; i++){
 				g.drawLine(STARTXBORDER1+(i*TILELENGTH),STARTYBORDER,STARTXBORDER1+(i*TILELENGTH),STARTYBORDER+10*TILELENGTH);
 				g.drawLine(STARTXBORDER2+(i*TILELENGTH),STARTYBORDER,STARTXBORDER2+(i*TILELENGTH),STARTYBORDER+10*TILELENGTH);
