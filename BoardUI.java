@@ -112,6 +112,8 @@ public class BoardUI extends JFrame implements ActionListener{
 				for(int j = 0; j <= 9; j++){
 					if(playerBoard[i][j]==Board.TILEDEAD)
 						g.drawImage(ImageIO.read(new File("Images" + File.separator + "tiledead.png")), getPlayerTileXPosition(i), getTileYPosition(j), TILELENGTH,TILELENGTH, null);
+					if(playerBoard[i][j]==Board.BOMBED)
+						g.drawImage(ImageIO.read(new File("Images" + File.separator + "tilebombed.png")), getPlayerTileXPosition(i), getTileYPosition(j), TILELENGTH,TILELENGTH, null);
 				}
 			}
 		}
