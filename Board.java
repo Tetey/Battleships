@@ -174,6 +174,7 @@ public class Board{
 			Ship ship = new Ship();
 			ship.shipName = ships[index]
 			ship.size = ships[index+1];
+			ship.sunk = ship.size;
 			if(ships[index+2].equals("true")){
 				ship.isHorizontal = true;
 			}
@@ -187,13 +188,113 @@ public class Board{
 	}
 
 	public void sendMoveToOpponent(int XPosition, int YPosition){
-
+		message = "My Move" + Integer.toString(XPosition) + " " + Integer.toString(YPosition);
 	}
 
-	public void evaluateTurn(int x, int y){
+
+	public void evaluateMyTurn(int x, int y){
+		if(opponentBoard[x][y].equals("null")){
+			//set to bombed
+			setMyTurn(false);
+		}
+		else{
+			String tempShipName = opponentBoard[x][y];
+			Ship tempShip;
+			for(int i = 0; i < opponentShips.size(); i++){
+				tempShip = opponentShips.get(i);
+				if(tempShip.shipName.equals(tempShipName)){
+					tempShip.sunk--;
+					//set opponentboard to tileDead
+					break;
+				}
+			}
+		}
+		sendMoveToOpponent(x, y);
+		//automatically check for win or lose
+	}
+
+	public void evaluateOpponentTurn(int x, int y){
+		if(myBoard[x][y].equals("null")){
+			//set to bombed
+			setMyTurn(true);
+		}
+		else{
+			String tempShipName = myBoard[x][y];
+			Ship tempShip;
+			for(int i = 0; i < myShips.size(); i++){
+				tempShip = myShips.get(i);
+				if(tempShip.shipName.equals(tempShipName)){
+					tempShip.sunk--;
+					//set myBoard to tileDead
+					break;
+				}
+			}
+		}
+		//automatically check for win or lose
+		checkIfWinLoseDraw();
+	}
+
+	//condition for draw?, pag ubos na tiles
+	public void checkIfWinLoseDraw(){
+		Ship temp;
+		boolean iWin = true;
+		boolean	opponentWin = true;
+		for(int i = 0; i < myShips.size(); i++){
+			temp = myShips.get(i);
+			if(temp.sunk != 0){
+				opponentWin = false;
+				break;
+			}
+		}
+		if(opponentWin){
+			setGameStatusToLose();
+			iWin = false;
+			message = "I lose";
+			//send message na end game na, win lose
+		}
+		else{
+			for(int i = 0; i < opponentShips.size(); i++){
+				temp = opponentShips.get(i);
+				if(temp.sunk != 0){
+					iWin = false;
+				}
+			}
+			if(iWin){
+				setGameStatusToWin();
+				opponentWin = false;
+				message = "I win";
+				//send message na end game na, win lose
+			}
+			else{
+				boolean draw = true;
+
+				for(int i = 0; i < 10; i++){
+					for(int j = 0; j < 10; j++){
+						if(myBoard[i][j].equals("null")){
+							draw = false;
+						}
+					}
+				}
+
+				for(int i = 0; i < 10; i++){
+					for(int j = 0; j < 10; j++){
+						if(opponentBoard[i][j].equals("null")){
+							draw = false;
+						}
+					}
+				}
+
+				if(draw){
+					setGameStatusToDraw();
+					message = "Draw";
+					//send message an end game na, draw
+				}
+			}
+		}
+
 		
-	}
 
+	}
 
 	public void setMyTurn(boolean b){
 		isMyTurn = b;
@@ -209,6 +310,10 @@ public class Board{
 
 	public void setGameStatusToLose(){
 		gameStatus = "lose";
+	}
+
+	public void setGameStatusToDraw(){
+		gameStatus = "draw";
 	}
 
 }

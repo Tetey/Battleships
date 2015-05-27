@@ -1,7 +1,8 @@
 public class Ship{
 	public int size; //1, 2, 3, 4
 	public boolean isHorizontal; //horizontal, vertical
-	public int sunk; //1 if sunk 
+	public int sunk; // 0 if sunk
+
 
 	protected String shipName;
 
@@ -16,6 +17,7 @@ public class Ship{
 	public Ship(int size, int posInit, String shipName){
 		this.shipName = shipName;
 		this.size = size;
+		this.sunk = size;
 		isHorizontal = true; //change to default orientation of ship
 		sunk = 0;
 		

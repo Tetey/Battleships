@@ -51,7 +51,18 @@ public class ServerClientThread extends Thread{
 							}
 						}
 					}
-				}								
+				}			
+
+				if(msg.indexOf("My Move") != -1){
+					for(int i = 0; i < aSCT.size(); i++){
+						tempSCT = aSCT.get(i);
+						if(tempSCT != this){
+							msg = msg.replace("My Move", "Evaluate Opponent Turn");
+							tempSCT.m.sendMessage(msg);
+						}
+					}
+				}					
+
 				//all server processing message from client stuff put here
 			}
 			

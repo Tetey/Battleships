@@ -25,6 +25,13 @@ public class ReceivingThread extends Thread{
 				else if(msg.equals("Your Turn")){
 					board.setMyTurn(true);
 				}
+				else if(msg.indexOf("Evaluate Opponent Turn") != -1){
+					msg = msg.replace("Evaluate Opponent Turn", "");
+					String[] temp = msg.split(" ");
+					int x = Integer.parseInt(temp[0]);
+					int y = Integer.parseInt(temp[1]);
+					board.evaluateOpponentTurn(x, y);
+				}
 			}
 		}
 		catch(Exception e){
