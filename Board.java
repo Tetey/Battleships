@@ -5,6 +5,12 @@ public class Board{
 	int[][] opponentBoard;
 	ArrayList<Ship> myShips = new ArrayList<Ship>();
 	String gameStatus;
+	
+	//PLAYER BOARD CONSTANTS
+	protected static final int INITIAL = 0;
+	protected static final int TILEDEAD = 1;
+	protected static final int BOATDEAD = 2;
+	protected static final int BOMBED = 3;
 
 	public Board(){
 		myBoard = new int[9][9]; //change to size of grid
