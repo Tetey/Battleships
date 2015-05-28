@@ -87,6 +87,7 @@ public class BoardUI extends JFrame implements ActionListener{
             	board.isSetUpDone = true;
             	board.setupDone();
             	done.setEnabled(false);
+            	//repaint();
             }
         });   
 		panel.add(done);
@@ -216,7 +217,7 @@ public class BoardUI extends JFrame implements ActionListener{
 		private class MouseReader extends MouseAdapter implements MouseMotionListener{
 			Ship currShip = null;
 			public void mouseClicked(MouseEvent e){
-				if (e.getClickCount() == 2) {
+				if (e.getClickCount() == 2&&!board.isSetUpDone) {
 					for(int i = 0; i <= 7; i++){
 						if(withinCoordinates(currShip = board.myShips.get(i), e.getX(), e.getY())){
 							System.out.println(clicked + " here");
@@ -229,6 +230,7 @@ public class BoardUI extends JFrame implements ActionListener{
 					int x = (e.getX() - STARTXBORDER2)/TILELENGTH;
 					int y = (e.getX() - STARTXBORDER2)/TILELENGTH;
 					board.evaluateMyTurn(x, y);
+					System.out.println("x: " + x + " y: " + y);
 				}
 				clicked = true;
 				//System.out.println("x: "+ e.getX() + " y: " +  e.getY() );
@@ -238,7 +240,7 @@ public class BoardUI extends JFrame implements ActionListener{
 				
 				
 				for(int i = 0; i <= 7; i++){
-					if(withinCoordinates(currShip = board.myShips.get(i), e.getX(), e.getY())){
+					if(withinCoordinates(currShip = board.myShips.get(i), e.getX(), e.getY())&&!board.isSetUpDone){
 						System.out.println(clicked + " i ");
 						startingX = e.getX();
 						startingY = e.getY();
@@ -283,7 +285,7 @@ public class BoardUI extends JFrame implements ActionListener{
 				clicked = false;
 			}
 			public void mouseReleased(MouseEvent e){
-				if(!clicked){
+				if(!clicked&&!board.isSetUpDone){
 					int xIndex = 0, yIndex = 0, counter = 0, i;
 					int width = TILELENGTH*lastShip.xSize;
 					int height = TILELENGTH*lastShip.ySize;

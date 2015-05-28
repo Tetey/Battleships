@@ -1,5 +1,3 @@
-import java.io.*;
-
 public class ReceivingThread extends Thread{
 	MyConnection m;
 	Board board;
