@@ -225,7 +225,7 @@ public class BoardUI extends JFrame implements ActionListener{
 					}
 					currShip.isHorizontal = !currShip.isHorizontal;
 					currShip.updateSizes();
-				}else if(e.getX() >= STARTXBORDER2 && e.getY() >= STARTYBORDER&&board.isSetUpDone){
+				}else if(e.getX() >= STARTXBORDER2 && e.getY() >= STARTYBORDER&&board.isSetUpDone&&board.isMyTurn){
 					int x = (e.getX() - STARTXBORDER2)/TILELENGTH;
 					int y = (e.getX() - STARTXBORDER2)/TILELENGTH;
 					board.evaluateMyTurn(x, y);
