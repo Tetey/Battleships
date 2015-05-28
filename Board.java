@@ -206,6 +206,7 @@ public class Board{
 			opponentBoard[x][y] = BOMBED;
 			setMyTurn(false);
 			System.out.println("Not my turn.");
+			System.out.println(isMyTurn);
 		}
 		else{
 			String tempShipName = opponentBoard[x][y];
@@ -231,6 +232,7 @@ public class Board{
 			myBoard[x][y] = BOMBED;
 			System.out.println("My turn!");
 			setMyTurn(true);
+			System.out.println(isMyTurn);
 		}
 		else{
 			String tempShipName = myBoard[x][y];
