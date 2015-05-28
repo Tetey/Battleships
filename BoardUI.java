@@ -216,6 +216,7 @@ public class BoardUI extends JFrame implements ActionListener{
 		}
 		private class MouseReader extends MouseAdapter implements MouseMotionListener{
 			Ship currShip = null;
+			int x = 0, y = 0;
 			public void mouseClicked(MouseEvent e){
 				if (e.getClickCount() == 2&&!board.isSetUpDone) {
 					for(int i = 0; i <= 7; i++){
@@ -228,7 +229,7 @@ public class BoardUI extends JFrame implements ActionListener{
 					currShip.updateSizes();
 				}else if(e.getX() >= STARTXBORDER2 && e.getY() >= STARTYBORDER&&board.isSetUpDone&&board.isMyTurn){
 					int x = (e.getX() - STARTXBORDER2)/TILELENGTH;
-					int y = (e.getX() - STARTXBORDER2)/TILELENGTH;
+					int y = (e.getY() - STARTYBORDER)/TILELENGTH;
 					board.evaluateMyTurn(x, y);
 					System.out.println("x: " + x + " y: " + y);
 				}
