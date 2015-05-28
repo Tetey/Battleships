@@ -237,7 +237,9 @@ public class Board{
 			Ship tempShip;
 			for(int i = 0; i < myShips.size(); i++){
 				tempShip = myShips.get(i);
+				System.out.println(tempShip.shipName + " " + tempShipName + " " + tempShip.sunk);
 				if(tempShip.shipName.equals(tempShipName)){
+
 					tempShip.sunk--;
 					//set myBoard to tileDead
 					System.out.println("Still not my turn.");
@@ -257,7 +259,7 @@ public class Board{
 		boolean	opponentWin = true;
 		for(int i = 0; i < myShips.size(); i++){
 			temp = myShips.get(i);
-			if(temp.sunk != 0){
+			if(temp.sunk > 0){
 				opponentWin = false;
 				break;
 			}

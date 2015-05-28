@@ -19,7 +19,6 @@ public class Ship{
 		this.size = size;
 		this.sunk = size;
 		isHorizontal = true; //change to default orientation of ship
-		sunk = 0;
 		
 		switch(posInit){
 		case 1:
