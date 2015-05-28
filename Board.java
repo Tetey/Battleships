@@ -20,13 +20,19 @@ public class Board{
 	protected static final int TWOBLOCKSHIP = 2;
 	protected static final int THREEBLOCKSHIP = 3;
 	protected static final int FOURBLOCKSHIP = 4;
-	protected static final int TILEDEAD = 5; //ito lang kailangan ni tetey
+	/*protected static final int TILEDEAD = 5; //ito lang kailangan ni tetey
 	protected static final int BOMBED = 6; //ito lang kailangan ni tetey
 	
 	protected static final int BOATDEAD1 = 7;
 	protected static final int BOATDEAD2 = 8;
 	protected static final int BOATDEAD3 = 9;
 	protected static final int BOATDEAD4 = 10;
+	*/
+
+	protected static final Stirng TILEDEAD = "TILEDEAD";
+	protected static final String BOMBED = "BOMBED";
+
+
 
 	public Board(){
 		myBoard = new String[10][10]; //change to size of grid
@@ -195,6 +201,7 @@ public class Board{
 	public void evaluateMyTurn(int x, int y){
 		if(opponentBoard[x][y].equals("null")){
 			//set to bombed
+			opponentBoard[x][y] = BOMBED;
 			setMyTurn(false);
 		}
 		else{
@@ -205,6 +212,7 @@ public class Board{
 				if(tempShip.shipName.equals(tempShipName)){
 					tempShip.sunk--;
 					//set opponentboard to tileDead
+					opponentBoard[x][y] = TILEDEAD;
 					break;
 				}
 			}
@@ -216,6 +224,7 @@ public class Board{
 	public void evaluateOpponentTurn(int x, int y){
 		if(myBoard[x][y].equals("null")){
 			//set to bombed
+			myBoard[x][y] = BOMBED;
 			setMyTurn(true);
 		}
 		else{
@@ -226,6 +235,7 @@ public class Board{
 				if(tempShip.shipName.equals(tempShipName)){
 					tempShip.sunk--;
 					//set myBoard to tileDead
+					myBoard[x][y] = TILEDEAD;
 					break;
 				}
 			}
