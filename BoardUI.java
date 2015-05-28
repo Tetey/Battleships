@@ -40,12 +40,12 @@ public class BoardUI extends JFrame implements ActionListener{
 	int lastX, lastY;
 		
 	private boolean dragging = false, clicked = true;
-	private Board board;
-	private String[][] playerBoard;
-	private String[][] opponentBoard;
+	protected Board board;
+	protected String[][] playerBoard;
+	protected String[][] opponentBoard;
 	
 
-	public BoardUI(){
+	public BoardUI(Board b){
 		super("Battleships");
 		
 		JMenu file = new JMenu("File");
@@ -54,7 +54,7 @@ public class BoardUI extends JFrame implements ActionListener{
 		JMenuItem exit = new JMenuItem("Exit");
 		JMenuBar bar = new JMenuBar();
 		GamePanel panel = new GamePanel();
-		board = new Board();
+		board = b;
 		playerBoard = board.myBoard;
 		opponentBoard = board.opponentBoard;
 		
@@ -97,7 +97,7 @@ public class BoardUI extends JFrame implements ActionListener{
 		             size.width, size.height);
 		
 		setContentPane(panel);
-		setSize(800, 420);
+		setSize(800, 480);
 		
 	        
         setDefaultCloseOperation(EXIT_ON_CLOSE);

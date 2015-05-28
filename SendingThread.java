@@ -12,10 +12,12 @@ public class SendingThread extends Thread{
 	
 	public void run(){
 		try{
+			//board.message = "TEST";
 			while(true){
 				input = board.message;
+				//System.out.println("Message: " + board.message);
 				if(input != null){	
-					boolean sent = m.sendMessage(input);
+					m.sendMessage(input);
 					board.message = null;
 				}
 			}

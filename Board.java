@@ -72,6 +72,8 @@ public class Board{
 		setGameStatusToOngoing();
 		initMyBoard();
 		setMessageForSetupDone();
+		//System.out.println(gameStatus);
+		//System.out.println(message);
 	}
 
 	public void initMyBoard(){		
@@ -168,7 +170,7 @@ public class Board{
 			temp = myShips.get(i);
 			messageToSend = messageToSend + " " + temp.shipName + " " + Integer.toString(temp.size) + " " + temp.isHorizontal + " " + Integer.toString(temp.XPosition) + " " + Integer.toString(temp.YPosition); 
 		}
-		message = messageToSend;
+		message = "" + messageToSend;
 	}
 
 	public void setOpponentShips(String str){
