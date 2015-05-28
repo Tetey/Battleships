@@ -35,18 +35,14 @@ public class BoardUI extends JFrame implements ActionListener{
 	//dragging variables
 	private int refreshCounter = 0;
 	private static final int refreshRate = 3;
-	int startingX;
-	int startingY;
-	int currentX;
-	int currentY;
+	int startingX, startingY, currentX, currentY;
 	Ship lastShip;
-	int lastX;
-	int lastY;
+	int lastX, lastY;
 		
-	private boolean dragging = false;
+	private boolean dragging = false, clicked = true;
 	private Board board;
-	private int[][] playerBoard;
-	private int[][] opponentBoard;
+	private String[][] playerBoard;
+	private String[][] opponentBoard;
 	
 
 	public BoardUI(){
@@ -170,14 +166,14 @@ public class BoardUI extends JFrame implements ActionListener{
 			playerBoard = board.myBoard;
 			for(int i = 0; i <= playerBoard.length-1; i++){
 				for(int j = 0; j <= playerBoard[i].length-1; j++){
-					if(playerBoard[i][j]==Board.TILEDEAD)
+					if(playerBoard[i][j].equals(Board.TILEDEAD))
 						g.drawImage(ImageIO.read(new File("Images" + File.separator + "tiledead.png")), getPlayerTileXPosition(i), getTileYPosition(j), TILELENGTH,TILELENGTH, null);
-					else if(playerBoard[i][j]==Board.BOMBED)
+					else if(playerBoard[i][j].equals(Board.BOMBED))
 						g.drawImage(ImageIO.read(new File("Images" + File.separator + "tilebombed.png")), getPlayerTileXPosition(i), getTileYPosition(j), TILELENGTH,TILELENGTH, null);
 					else{}
-					if(opponentBoard[i][j]==Board.TILEDEAD)
+					if(opponentBoard[i][j].equals(Board.TILEDEAD))
 						g.drawImage(ImageIO.read(new File("Images" + File.separator + "tiledead.png")), getOpponentTileXPosition(i), getTileYPosition(j), TILELENGTH,TILELENGTH, null);
-					else if(opponentBoard[i][j]==Board.BOMBED)
+					else if(opponentBoard[i][j].equals(Board.BOMBED))
 						g.drawImage(ImageIO.read(new File("Images" + File.separator + "tilebombed.png")), getOpponentTileXPosition(i), getTileYPosition(j), TILELENGTH,TILELENGTH, null);
 					else{}
 				}
@@ -223,36 +219,38 @@ public class BoardUI extends JFrame implements ActionListener{
 				if (e.getClickCount() == 2) {
 					for(int i = 0; i <= 7; i++){
 						if(withinCoordinates(currShip = board.myShips.get(i), e.getX(), e.getY())){
-							System.out.println(i + " here");
+							System.out.println(clicked + " here");
 							break;
 						}
 					}
 					currShip.isHorizontal = !currShip.isHorizontal;
 					currShip.updateSizes();
-				}else{
-					for(int i = 0; i <= 7; i++){
-						if(withinCoordinates(currShip = board.myShips.get(i), e.getX(), e.getY())){
-							System.out.println(e.getClickCount() + " i ");
-							break;
-						}
-					}
+				}else if(e.getX() >= STARTXBORDER2 && e.getY() >= STARTYBORDER&&board.isSetUpDone){
+					int x = (e.getX() - STARTXBORDER2)/TILELENGTH;
+					int y = (e.getX() - STARTXBORDER2)/TILELENGTH;
+					board.evaluateMyTurn(x, y);
 				}
+				clicked = true;
 				//System.out.println("x: "+ e.getX() + " y: " +  e.getY() );
 				repaint();
 			}
 			public void mousePressed(MouseEvent e){
+				
+				
 				for(int i = 0; i <= 7; i++){
 					if(withinCoordinates(currShip = board.myShips.get(i), e.getX(), e.getY())){
-						//System.out.println(i + " i ");
+						System.out.println(clicked + " i ");
 						startingX = e.getX();
 						startingY = e.getY();
 						lastX = currShip.XCoor;
 						lastY = currShip.YCoor;
 						lastShip = currShip;
+						lastShip.updateSizes();
 						break;
 					}
 				}
 				dragging = true;
+				clicked = true;
 			}
 			public void mouseDragged(MouseEvent e){
 				if(!board.isSetUpDone){//YOU CAN DRAG YAY
@@ -282,39 +280,42 @@ public class BoardUI extends JFrame implements ActionListener{
 						}
 					}
 				}
+				clicked = false;
 			}
 			public void mouseReleased(MouseEvent e){
-				int xIndex = 0, yIndex = 0, counter = 0, i;
-				int width = TILELENGTH*lastShip.xSize;
-				int height = TILELENGTH*lastShip.ySize;
-				Rectangle curr;
-				Rectangle drag = new Rectangle(lastShip.XCoor, lastShip.YCoor, width, height);
-				for(i = 0; i <= 7; i++){
-					currShip = board.myShips.get(i);
-					width = TILELENGTH*currShip.xSize;
-					height = TILELENGTH*currShip.ySize;
-					curr = new Rectangle(currShip.XCoor, currShip.YCoor, width, height);
-					if(drag.intersects(curr)){
-						System.out.println(i + " i ");
-						startingX = e.getX();
-						startingY = e.getY();
-						counter++;
+				if(!clicked){
+					int xIndex = 0, yIndex = 0, counter = 0, i;
+					int width = TILELENGTH*lastShip.xSize;
+					int height = TILELENGTH*lastShip.ySize;
+					Rectangle curr;
+					Rectangle drag = new Rectangle(lastShip.XCoor, lastShip.YCoor, width, height);
+					for(i = 0; i <= 7; i++){
+						currShip = board.myShips.get(i);
+						width = TILELENGTH*currShip.xSize;
+						height = TILELENGTH*currShip.ySize;
+						curr = new Rectangle(currShip.XCoor, currShip.YCoor, width, height);
+						if(drag.intersects(curr)){
+							System.out.println(i + " i ");
+							startingX = e.getX();
+							startingY = e.getY();
+							counter++;
+						}
 					}
-				}
-				if(counter>1){
-					System.out.println(counter + " tis truuu ");
-					lastShip.XCoor = lastX;
-					lastShip.YCoor = lastY;
+					if(counter>1){
+						System.out.println(counter + " tis truuu ");
+						lastShip.XCoor = lastX;
+						lastShip.YCoor = lastY;
+						dragging = false;
+					}else{
+						System.out.println(counter + " tis trruuu ");
+						xIndex = (e.getX()-STARTXBORDER1)/TILELENGTH;
+						yIndex = (e.getY()-STARTYBORDER)/TILELENGTH;
+						lastShip.XCoor = getPlayerTileXPosition(xIndex);
+						lastShip.YCoor = getTileYPosition(yIndex);
+						dragging = false;
+					}
 					dragging = false;
-				}else{
-					System.out.println(counter + " tis trruuu ");
-					xIndex = (e.getX()-STARTXBORDER1)/TILELENGTH;
-					yIndex = (e.getY()-STARTYBORDER)/TILELENGTH;
-					lastShip.XCoor = getPlayerTileXPosition(xIndex);
-					lastShip.YCoor = getTileYPosition(yIndex);
-					dragging = false;
 				}
-				dragging = false;
 				repaint();		
 			}
 		}
