@@ -29,7 +29,7 @@ public class Board{
 	protected static final int BOATDEAD4 = 10;
 	*/
 
-	protected static final Stirng TILEDEAD = "TILEDEAD";
+	protected static final String TILEDEAD = "TILEDEAD";
 	protected static final String BOMBED = "BOMBED";
 
 
@@ -203,6 +203,7 @@ public class Board{
 			//set to bombed
 			opponentBoard[x][y] = BOMBED;
 			setMyTurn(false);
+			System.out.println("Not my turn.");
 		}
 		else{
 			String tempShipName = opponentBoard[x][y];
@@ -213,6 +214,7 @@ public class Board{
 					tempShip.sunk--;
 					//set opponentboard to tileDead
 					opponentBoard[x][y] = TILEDEAD;
+					System.out.println("Still my turn.");
 					break;
 				}
 			}
@@ -225,6 +227,7 @@ public class Board{
 		if(myBoard[x][y].equals("null")){
 			//set to bombed
 			myBoard[x][y] = BOMBED;
+			System.out.println("My turn!");
 			setMyTurn(true);
 		}
 		else{
@@ -235,6 +238,7 @@ public class Board{
 				if(tempShip.shipName.equals(tempShipName)){
 					tempShip.sunk--;
 					//set myBoard to tileDead
+					System.out.println("Still not my turn.");
 					myBoard[x][y] = TILEDEAD;
 					break;
 				}

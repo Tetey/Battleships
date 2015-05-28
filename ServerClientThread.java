@@ -21,6 +21,7 @@ public class ServerClientThread extends Thread{
 			while(true){
 				String msg = m.getMessage();
 				if(msg.indexOf("Setup Done") != -1){
+					System.out.println("" + playerNum + " done setting up.");
 					if(aSCT.size() == 1){
 						m.sendMessage("Still Alone");
 					}
@@ -30,6 +31,7 @@ public class ServerClientThread extends Thread{
 							if(tempSCT != this){
 								msg = msg.replace("Setup Done ", "Initialize OpponentBoard");
 								tempSCT.m.sendMessage(msg);
+								System.out.println("Sent " + playerNum + "'s config.");
 							}
 						}
 						start = true;
@@ -39,6 +41,7 @@ public class ServerClientThread extends Thread{
 								//means tapos na magset up both players
 								if(tempSCT.start){
 									gameStart = true;
+									System.out.println("Start Game!");
 								}
 							}
 						}
@@ -47,6 +50,7 @@ public class ServerClientThread extends Thread{
 								tempSCT = aSCT.get(i);
 								if(tempSCT.playerNum == 1){
 									tempSCT.m.sendMessage("Your Turn");
+									System.out.println("" + tempSCT.playerNum + "'s turn.");
 								}
 							}
 						}
