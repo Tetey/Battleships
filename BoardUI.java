@@ -77,7 +77,7 @@ public class BoardUI extends JFrame implements ActionListener{
         setDefaultLookAndFeelDecorated(true);		
         
 		Container con = this.getContentPane();
-		con.setLayout(new FlowLayout());
+		//con.setLayout(new FlowLayout());
 		panel.setLayout(null);
 		
 		
@@ -124,7 +124,7 @@ public class BoardUI extends JFrame implements ActionListener{
 		//Draw functions
 		public void paint(Graphics g){
 			super.paintComponents(g);
-			paintComponents(g);
+			//paintComponents(g);
 			if(!board.gameStatus.equals("end")){
 				try{
 					drawBackgroundImage(g);
@@ -216,17 +216,20 @@ public class BoardUI extends JFrame implements ActionListener{
 		}
 		private class MouseReader extends MouseAdapter implements MouseMotionListener{
 			Ship currShip = null;
-			int x = 0, y = 0;
+			int x = 0, y = 0, counter = 0;
 			public void mouseClicked(MouseEvent e){
 				if (e.getClickCount() == 2&&!board.isSetUpDone) {
 					for(int i = 0; i <= 7; i++){
 						if(withinCoordinates(currShip = board.myShips.get(i), e.getX(), e.getY())){
 							System.out.println(clicked + " here");
+							counter++;
 							break;
 						}
 					}
-					currShip.isHorizontal = !currShip.isHorizontal;
-					currShip.updateSizes();
+					if(counter>1){
+						currShip.isHorizontal = !currShip.isHorizontal;
+						currShip.updateSizes();
+					}
 				}else if(e.getX() >= STARTXBORDER2 && e.getY() >= STARTYBORDER&&board.isSetUpDone&&board.isMyTurn){
 					int x = (e.getX() - STARTXBORDER2)/TILELENGTH;
 					int y = (e.getY() - STARTYBORDER)/TILELENGTH;
