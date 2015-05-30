@@ -19,6 +19,7 @@ public class ReceivingThread extends Thread{
 				else if(msg.indexOf("Initialize OpponentBoard") != -1){
 					msg = msg.replace("Initialize OpponentBoard", "");
 					board.setOpponentShips(msg);
+					board.initOpponentBoard();
 				}
 				else if(msg.equals("Your Turn")){
 					board.setMyTurn(true);
