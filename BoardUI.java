@@ -131,8 +131,9 @@ public class BoardUI extends JFrame implements ActionListener{
 					g.clearRect(STARTXBORDER2, STARTYBORDER, 10*TILELENGTH-1, 10*TILELENGTH-1);
 					g.drawRect(STARTXBORDER1, STARTYBORDER, 10*TILELENGTH, 10*TILELENGTH);
 					g.drawRect(STARTXBORDER2, STARTYBORDER, 10*TILELENGTH, 10*TILELENGTH);
-					userRect = new Rectangle(STARTXBORDER1, STARTYBORDER, 10*TILELENGTH-1, 10*TILELENGTH-1);
 					drawShips(g);
+
+					userRect = new Rectangle(STARTXBORDER1, STARTYBORDER, 10*TILELENGTH-1, 10*TILELENGTH-1);
 					drawGridLines(g);
 					drawBoardStatus(g);
 				}catch(IOException e){
@@ -147,18 +148,22 @@ public class BoardUI extends JFrame implements ActionListener{
 		}
 		
 		private void drawShips(Graphics g) {
-			Ship currShip = null;
+			Ship currShip = null, oppShip = null;
 			int xPos = 0, yPos = 0;
 			g.setColor(Color.BLUE);
 			for(int i = 0; i <= 7; i++){
 				currShip = board.myShips.get(i);
+				oppShip = board.opponentShips.get(i);
 				xPos = currShip.XCoor;
 				yPos = currShip.YCoor ;
 				drawBorderedRect(xPos, yPos, currShip.xSize, currShip.ySize, g);
-				
+				g.setColor(Color.RED);
+				if(oppShip.sunk==0)
+					drawBorderedRect(oppShip.getOppXCoordinates(), oppShip.getYCoordinates(), oppShip.xSize, oppShip.ySize, g);
 				//System.out.println("yPos: " + yPos + " xPos: " + xPos + " ySize: " + ySize + " xSize: " + xSize);
 				xPos = 0;
-				yPos = 0;
+				yPos = 0;	
+				g.setColor(Color.BLUE);
 			}
 				
 		}
@@ -171,12 +176,10 @@ public class BoardUI extends JFrame implements ActionListener{
 						g.drawImage(ImageIO.read(new File("Images" + File.separator + "tiledead.png")), getPlayerTileXPosition(i), getTileYPosition(j), TILELENGTH,TILELENGTH, null);
 					else if(playerBoard[i][j].equals(Board.BOMBED))
 						g.drawImage(ImageIO.read(new File("Images" + File.separator + "tilebombed.png")), getPlayerTileXPosition(i), getTileYPosition(j), TILELENGTH,TILELENGTH, null);
-					else{}
 					if(opponentBoard[i][j].equals(Board.TILEDEAD))
 						g.drawImage(ImageIO.read(new File("Images" + File.separator + "tiledead.png")), getOpponentTileXPosition(i), getTileYPosition(j), TILELENGTH,TILELENGTH, null);
 					else if(opponentBoard[i][j].equals(Board.BOMBED))
 						g.drawImage(ImageIO.read(new File("Images" + File.separator + "tilebombed.png")), getOpponentTileXPosition(i), getTileYPosition(j), TILELENGTH,TILELENGTH, null);
-					else{}
 				}
 			}
 		}
@@ -200,9 +203,9 @@ public class BoardUI extends JFrame implements ActionListener{
 		}
 		
 		private void drawBorderedRect(int x, int y, int tilenumx, int tilenumy, Graphics g){
-			g.fillRect(x-1, y-1, tilenumx*TILELENGTH+1, tilenumy*TILELENGTH+1);
+			g.fillRect(x, y-1, tilenumx*TILELENGTH, tilenumy*TILELENGTH+1);
 			//g.clearRect(x, y, tilenumx*TILELENGTH-1, tilenumy*TILELENGTH-1);
-			g.drawRect(x, y, tilenumx*TILELENGTH, tilenumy*TILELENGTH);
+			//g.drawRect(x, y, tilenumx*TILELENGTH, tilenumy*TILELENGTH);
 		}
 		private void drawGridLines(Graphics g){
 			
@@ -306,7 +309,7 @@ public class BoardUI extends JFrame implements ActionListener{
 						}
 					}
 					System.out.println((userRect.union(drag)).contains(drag) + "eto na poooooo");
-					if(counter>1||(userRect.union(drag)).contains(drag)){
+					if(counter>1||(drag.contains(userRect.union(drag)))){
 						System.out.println(counter + " tis truuu ");
 						lastShip.XCoor = lastX;
 						lastShip.YCoor = lastY;

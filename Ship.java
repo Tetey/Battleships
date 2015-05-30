@@ -89,4 +89,8 @@ public class Ship{
 	public int getYCoordinates(){
 		return BoardUI.STARTYBORDER + YPosition*BoardUI.TILELENGTH+1;
 	}
+	
+	public int getOppXCoordinates(){
+		return BoardUI.STARTXBORDER2 + XPosition*BoardUI.TILELENGTH+1;
+	}
 }
