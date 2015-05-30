@@ -191,6 +191,7 @@ public class Board{
 			}
 			ship.XPosition = Integer.parseInt(ships[index+3]);
 			ship.YPosition = Integer.parseInt(ships[index+4]);
+			opponentShips.add(ship);
 		}
 		initOpponentBoard();
 	}
@@ -206,7 +207,7 @@ public class Board{
 			opponentBoard[x][y] = BOMBED;
 			setMyTurn(false);
 			System.out.println("Not my turn.");
-			System.out.println(isMyTurn);
+			System.out.println("Naset ko na ba turn ko? " + isMyTurn);
 		}
 		else{
 			String tempShipName = opponentBoard[x][y];
@@ -218,6 +219,7 @@ public class Board{
 					//set opponentboard to tileDead
 					opponentBoard[x][y] = TILEDEAD;
 					System.out.println("Still my turn.");
+					System.out.println("Naset ko na ba turn ko? " + isMyTurn);
 					break;
 				}
 			}
@@ -231,8 +233,8 @@ public class Board{
 			//set to bombed
 			myBoard[x][y] = BOMBED;
 			System.out.println("My turn!");
-			setMyTurn(true);
-			System.out.println(isMyTurn);
+			setMyTurn(true);		
+			System.out.println("Naset ko na ba turn ko? " + isMyTurn);
 		}
 		else{
 			String tempShipName = myBoard[x][y];
@@ -241,10 +243,10 @@ public class Board{
 				tempShip = myShips.get(i);
 				System.out.println(tempShip.shipName + " " + tempShipName + " " + tempShip.sunk);
 				if(tempShip.shipName.equals(tempShipName)){
-
 					tempShip.sunk--;
 					//set myBoard to tileDead
 					System.out.println("Still not my turn.");
+					System.out.println("Naset ko na ba turn ko? " + isMyTurn);
 					myBoard[x][y] = TILEDEAD;
 					break;
 				}
@@ -278,6 +280,7 @@ public class Board{
 				temp = opponentShips.get(i);
 				if(temp.sunk != 0){
 					iWin = false;
+					//System.out.println(temp.sunk);
 				}
 			}
 			if(iWin){
