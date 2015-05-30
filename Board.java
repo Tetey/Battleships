@@ -212,6 +212,7 @@ public class Board{
 		else{
 			String tempShipName = opponentBoard[x][y];
 			Ship tempShip;
+			System.out.println("SIZE!!!! of opponentShips KO : " + opponentShips.size());
 			for(int i = 0; i < opponentShips.size(); i++){
 				tempShip = opponentShips.get(i);
 				if(tempShip.shipName.equals(tempShipName)){
