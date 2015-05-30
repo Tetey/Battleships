@@ -333,6 +333,10 @@ public class BoardUI extends JFrame implements ActionListener{
 		}
 		
 	}
+
+	public void update(){
+		repaint();	
+	}
 }
 
 
