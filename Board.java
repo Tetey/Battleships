@@ -65,6 +65,12 @@ public class Board{
 		myShips.add(ship7);
 		myShips.add(ship8);
 
+		for(int i = 0; i < 8; i++){
+			Ship ship = new Ship();
+			ship.sunk = 1;
+			opponentShips.add(ship);
+		}
+
 	}
 
 	//call as soon as done with setup
@@ -177,6 +183,7 @@ public class Board{
 		String[] ships = str.split(" ");
 		int index = 0;
 
+		opponentShips.clear();
 		for(int i = 0; i < 8; i++){
 			index = i*5;
 			Ship ship = new Ship();
@@ -291,7 +298,7 @@ public class Board{
 				setMyTurn(false);
 				//send message na end game na, win lose
 			}
-			else{
+			/*else{
 				boolean draw = true;
 
 				for(int i = 0; i < 10; i++){
@@ -316,7 +323,7 @@ public class Board{
 					setMyTurn(false);
 					//send message an end game na, draw
 				}
-			}
+			}*/
 		}
 
 		
