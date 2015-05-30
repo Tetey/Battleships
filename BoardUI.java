@@ -1,7 +1,6 @@
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.Rectangle;
@@ -43,7 +42,7 @@ public class BoardUI extends JFrame implements ActionListener{
 	protected Board board;
 	protected String[][] playerBoard;
 	protected String[][] opponentBoard;
-	
+	protected Rectangle userRect;
 
 	public BoardUI(Board b){
 		super("Battleships");
@@ -87,7 +86,7 @@ public class BoardUI extends JFrame implements ActionListener{
             	board.isSetUpDone = true;
             	board.setupDone();
             	done.setEnabled(false);
-            	//repaint();
+            	repaint();
             }
         });   
 		panel.add(done);
@@ -123,8 +122,6 @@ public class BoardUI extends JFrame implements ActionListener{
 		
 		//Draw functions
 		public void paint(Graphics g){
-			super.paintComponents(g);
-			//paintComponents(g);
 			if(!board.gameStatus.equals("end")){
 				try{
 					drawBackgroundImage(g);
@@ -134,6 +131,7 @@ public class BoardUI extends JFrame implements ActionListener{
 					g.clearRect(STARTXBORDER2, STARTYBORDER, 10*TILELENGTH-1, 10*TILELENGTH-1);
 					g.drawRect(STARTXBORDER1, STARTYBORDER, 10*TILELENGTH, 10*TILELENGTH);
 					g.drawRect(STARTXBORDER2, STARTYBORDER, 10*TILELENGTH, 10*TILELENGTH);
+					userRect = new Rectangle(STARTXBORDER1, STARTYBORDER, 10*TILELENGTH-1, 10*TILELENGTH-1);
 					drawShips(g);
 					drawGridLines(g);
 					drawBoardStatus(g);
@@ -144,6 +142,8 @@ public class BoardUI extends JFrame implements ActionListener{
 			else{
 				//drawResult();
 			}
+			super.paintComponents(g);
+			//paintComponents(g);
 		}
 		
 		private void drawShips(Graphics g) {
@@ -201,7 +201,7 @@ public class BoardUI extends JFrame implements ActionListener{
 		
 		private void drawBorderedRect(int x, int y, int tilenumx, int tilenumy, Graphics g){
 			g.fillRect(x-1, y-1, tilenumx*TILELENGTH+1, tilenumy*TILELENGTH+1);
-			g.clearRect(x, y, tilenumx*TILELENGTH-1, tilenumy*TILELENGTH-1);
+			//g.clearRect(x, y, tilenumx*TILELENGTH-1, tilenumy*TILELENGTH-1);
 			g.drawRect(x, y, tilenumx*TILELENGTH, tilenumy*TILELENGTH);
 		}
 		private void drawGridLines(Graphics g){
@@ -241,8 +241,6 @@ public class BoardUI extends JFrame implements ActionListener{
 				repaint();
 			}
 			public void mousePressed(MouseEvent e){
-				
-				
 				for(int i = 0; i <= 7; i++){
 					if(withinCoordinates(currShip = board.myShips.get(i), e.getX(), e.getY())&&!board.isSetUpDone){
 						System.out.println(clicked + " i ");
@@ -293,7 +291,7 @@ public class BoardUI extends JFrame implements ActionListener{
 					int xIndex = 0, yIndex = 0, counter = 0, i;
 					int width = TILELENGTH*lastShip.xSize;
 					int height = TILELENGTH*lastShip.ySize;
-					Rectangle curr;
+					Rectangle curr = new Rectangle();
 					Rectangle drag = new Rectangle(lastShip.XCoor, lastShip.YCoor, width, height);
 					for(i = 0; i <= 7; i++){
 						currShip = board.myShips.get(i);
@@ -307,7 +305,8 @@ public class BoardUI extends JFrame implements ActionListener{
 							counter++;
 						}
 					}
-					if(counter>1){
+					System.out.println((userRect.union(drag)).contains(drag) + "eto na poooooo");
+					if(counter>1||(userRect.union(drag)).contains(drag)){
 						System.out.println(counter + " tis truuu ");
 						lastShip.XCoor = lastX;
 						lastShip.YCoor = lastY;
