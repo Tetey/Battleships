@@ -125,39 +125,39 @@ public class Board{
 		for(int i = 0; i < opponentShips.size(); i++){
 			temp = opponentShips.get(i);
 			if(temp.size == ONEBLOCKSHIP){
-				myBoard[temp.XPosition][temp.YPosition] = temp.shipName;
+				opponentBoard[temp.XPosition][temp.YPosition] = temp.shipName;
 			}
 			else if(temp.size == TWOBLOCKSHIP){
-				myBoard[temp.XPosition][temp.YPosition] = temp.shipName;
+				opponentBoard[temp.XPosition][temp.YPosition] = temp.shipName;
 				if(temp.isHorizontal){
-					myBoard[temp.XPosition+1][temp.YPosition] = temp.shipName;
+					opponentBoard[temp.XPosition+1][temp.YPosition] = temp.shipName;
 				}
 				else{
-					myBoard[temp.XPosition][temp.YPosition+1] = temp.shipName;
+					opponentBoard[temp.XPosition][temp.YPosition+1] = temp.shipName;
 				}
 			}
 			else if(temp.size == THREEBLOCKSHIP){
-				myBoard[temp.XPosition][temp.YPosition] = temp.shipName;
+				opponentBoard[temp.XPosition][temp.YPosition] = temp.shipName;
 				if(temp.isHorizontal){
-					myBoard[temp.XPosition+1][temp.YPosition] = temp.shipName;
-					myBoard[temp.XPosition+2][temp.YPosition] = temp.shipName;
+					opponentBoard[temp.XPosition+1][temp.YPosition] = temp.shipName;
+					opponentBoard[temp.XPosition+2][temp.YPosition] = temp.shipName;
 				}
 				else{
-					myBoard[temp.XPosition][temp.YPosition+1] = temp.shipName;
-					myBoard[temp.XPosition][temp.YPosition+2] = temp.shipName;
+					opponentBoard[temp.XPosition][temp.YPosition+1] = temp.shipName;
+					opponentBoard[temp.XPosition][temp.YPosition+2] = temp.shipName;
 				}
 			}
 			else if(temp.size == FOURBLOCKSHIP){
-				myBoard[temp.XPosition][temp.YPosition] = temp.shipName;
+				opponentBoard[temp.XPosition][temp.YPosition] = temp.shipName;
 				if(temp.isHorizontal){
-					myBoard[temp.XPosition+1][temp.YPosition] = temp.shipName;
-					myBoard[temp.XPosition+2][temp.YPosition] = temp.shipName;
-					myBoard[temp.XPosition+3][temp.YPosition] = temp.shipName;
+					opponentBoard[temp.XPosition+1][temp.YPosition] = temp.shipName;
+					opponentBoard[temp.XPosition+2][temp.YPosition] = temp.shipName;
+					opponentBoard[temp.XPosition+3][temp.YPosition] = temp.shipName;
 				}
 				else{
-					myBoard[temp.XPosition][temp.YPosition+1] = temp.shipName;
-					myBoard[temp.XPosition][temp.YPosition+2] = temp.shipName;
-					myBoard[temp.XPosition][temp.YPosition+3] = temp.shipName;
+					opponentBoard[temp.XPosition][temp.YPosition+1] = temp.shipName;
+					opponentBoard[temp.XPosition][temp.YPosition+2] = temp.shipName;
+					opponentBoard[temp.XPosition][temp.YPosition+3] = temp.shipName;
 				}
 			}  
 		}

@@ -19,7 +19,6 @@ public class ReceivingThread extends Thread{
 				else if(msg.indexOf("Initialize OpponentBoard") != -1){
 					msg = msg.replace("Initialize OpponentBoard", "");
 					board.setOpponentShips(msg);
-					board.initOpponentBoard();
 				}
 				else if(msg.equals("Your Turn")){
 					board.setMyTurn(true);
@@ -30,6 +29,7 @@ public class ReceivingThread extends Thread{
 					int x = Integer.parseInt(temp[0]);
 					int y = Integer.parseInt(temp[1]);
 					board.evaluateOpponentTurn(x, y);
+					boardUI.update();
 				}
 				else if(msg.equals("You win")){
 					board.setGameStatusToWin();
