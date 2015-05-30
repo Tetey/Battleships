@@ -20,85 +20,86 @@ public class ServerClientThread extends Thread{
 			boolean gameStart = false;
 			while(true){
 				String msg = m.getMessage();
-				if(msg.indexOf("Setup Done") != -1){
-					//System.out.println("" + playerNum + " done setting up.");
-					if(aSCT.size() == 1){
-						m.sendMessage("Still Alone");
-					}
-					else{
-						for(int i = 0; i < aSCT.size(); i++){
-							tempSCT = aSCT.get(i); 
-							if(tempSCT != this){
-								msg = msg.replace("Setup Done ", "Initialize OpponentBoard");
-								tempSCT.m.sendMessage(msg);
-								//System.out.println("Sent " + playerNum + "'s config.");
+				if(msg != null){
+					if(msg.indexOf("Setup Done") != -1){
+						//System.out.println("" + playerNum + " done setting up.");
+						if(aSCT.size() == 1){
+							m.sendMessage("Still Alone");
+						}
+						else{
+							for(int i = 0; i < aSCT.size(); i++){
+								tempSCT = aSCT.get(i); 
+								if(tempSCT != this){
+									msg = msg.replace("Setup Done ", "Initialize OpponentBoard");
+									tempSCT.m.sendMessage(msg);
+									//System.out.println("Sent " + playerNum + "'s config.");
+								}
+							}
+							start = true;
+							for(int i = 0; i < aSCT.size(); i++){
+								tempSCT = aSCT.get(i);
+								if(tempSCT != this){
+									//means tapos na magset up both players
+									if(tempSCT.start){
+										gameStart = true;
+										//System.out.println("Start Game!");
+									}
+								}
+							}
+							if(gameStart){
+								for(int i = 0; i < aSCT.size(); i++){
+									tempSCT = aSCT.get(i);
+									if(tempSCT.playerNum == 1){
+										tempSCT.m.sendMessage("Your Turn");
+										//System.out.println("" + tempSCT.playerNum + "'s turn.");
+									}
+								}
 							}
 						}
-						start = true;
+					}			
+
+					if(msg.indexOf("My Move") != -1){
 						for(int i = 0; i < aSCT.size(); i++){
 							tempSCT = aSCT.get(i);
 							if(tempSCT != this){
-								//means tapos na magset up both players
-								if(tempSCT.start){
-									gameStart = true;
-									//System.out.println("Start Game!");
-								}
-							}
-						}
-						if(gameStart){
-							for(int i = 0; i < aSCT.size(); i++){
-								tempSCT = aSCT.get(i);
-								if(tempSCT.playerNum == 1){
-									tempSCT.m.sendMessage("Your Turn");
-									//System.out.println("" + tempSCT.playerNum + "'s turn.");
-								}
+								msg = msg.replace("My Move", "Evaluate Opponent Turn");
+								tempSCT.m.sendMessage(msg);
 							}
 						}
 					}
-				}			
 
-				if(msg.indexOf("My Move") != -1){
-					for(int i = 0; i < aSCT.size(); i++){
-						tempSCT = aSCT.get(i);
-						if(tempSCT != this){
-							msg = msg.replace("My Move", "Evaluate Opponent Turn");
-							tempSCT.m.sendMessage(msg);
+					if(msg.equals("I win")){
+						for(int i = 0; i < aSCT.size(); i++){
+							tempSCT = aSCT.get(i);
+							if(tempSCT != this){
+								tempSCT.m.sendMessage("You lose");
+								break;
+							}
 						}
-					}
+					}	
+					else if(msg.equals("I lose")){
+						for(int i = 0; i < aSCT.size(); i++){
+							tempSCT = aSCT.get(i);
+							if(tempSCT != this){
+								tempSCT.m.sendMessage("You win");
+								break;
+							}
+						}
+
+					}	
+					else if(msg.equals("Draw")){
+						for(int i = 0; i < aSCT.size(); i++){
+							tempSCT = aSCT.get(i);
+							if(tempSCT != this){
+								tempSCT.m.sendMessage("Draw");
+								break;
+							}
+						}
+					}			
+
+					//all server processing message from client stuff put here
 				}
-
-				if(msg.equals("I win")){
-					for(int i = 0; i < aSCT.size(); i++){
-						tempSCT = aSCT.get(i);
-						if(tempSCT != this){
-							tempSCT.m.sendMessage("You lose");
-							break;
-						}
-					}
-				}	
-				else if(msg.equals("I lose")){
-					for(int i = 0; i < aSCT.size(); i++){
-						tempSCT = aSCT.get(i);
-						if(tempSCT != this){
-							tempSCT.m.sendMessage("You win");
-							break;
-						}
-					}
-
-				}	
-				else if(msg.equals("Draw")){
-					for(int i = 0; i < aSCT.size(); i++){
-						tempSCT = aSCT.get(i);
-						if(tempSCT != this){
-							tempSCT.m.sendMessage("Draw");
-							break;
-						}
-					}
-				}			
-
-				//all server processing message from client stuff put here
 			}
-			
 		}
 		catch(Exception e){
 			System.out.println("Server: Something bad happened :(");
