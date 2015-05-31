@@ -280,7 +280,8 @@ public class BoardUI extends JFrame implements ActionListener{
 				repaint();
 			}
 			public void mousePressed(MouseEvent e){
-				for(int i = 0; i <= 7; i++){
+				int i;
+				for(i = 0; i <= 7; i++){
 					if(withinCoordinates(currShip = board.myShips.get(i), e.getX(), e.getY())&&!board.isSetUpDone){
 						System.out.println(clicked + " i ");
 						startingX = e.getX();
@@ -292,7 +293,8 @@ public class BoardUI extends JFrame implements ActionListener{
 						break;
 					}
 				}
-				dragging = true;
+				if(i>7)
+					dragging = true;
 				clicked = true;
 			}
 			public void mouseDragged(MouseEvent e){
@@ -326,14 +328,16 @@ public class BoardUI extends JFrame implements ActionListener{
 				clicked = false;
 			}
 			public void mouseReleased(MouseEvent e){
-				if(!clicked&&!board.isSetUpDone){
+				if(!clicked&&!board.isSetUpDone&&dragging){
 					int xIndex = 0, yIndex = 0, counter = 0, i;
+					lastShip.updateSizes();
 					int width = TILELENGTH*lastShip.xSize;
 					int height = TILELENGTH*lastShip.ySize;
 					Rectangle curr = new Rectangle();
 					Rectangle drag = new Rectangle(lastShip.XCoor, lastShip.YCoor, width, height);
 					for(i = 0; i <= 7; i++){
 						currShip = board.myShips.get(i);
+						currShip.updateSizes();
 						width = TILELENGTH*currShip.xSize;
 						height = TILELENGTH*currShip.ySize;
 						curr = new Rectangle(currShip.XCoor, currShip.YCoor, width, height);
