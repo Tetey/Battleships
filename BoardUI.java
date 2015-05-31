@@ -328,7 +328,7 @@ public class BoardUI extends JFrame implements ActionListener{
 								}
 							}
 							dragging = true;
-							System.out.println("5");
+							//System.out.println("5");
 						}
 						if (dragging){
 							if (refreshCounter >= refreshRate){
@@ -347,7 +347,7 @@ public class BoardUI extends JFrame implements ActionListener{
 								//System.out.println(counter + " tis truuu ");
 								currShip.XCoor = getPlayerTileXPosition(board.myShips.get(0).XPosition);
 								currShip.YCoor = getTileYPosition(board.myShips.get(0).YPosition);
-								System.out.println("3");
+								//System.out.println("3");
 							}
 							//System.out.println("6");
 						}
@@ -364,7 +364,7 @@ public class BoardUI extends JFrame implements ActionListener{
 						int height = TILELENGTH*lastShip.ySize;
 						Rectangle curr = new Rectangle();
 						Rectangle drag = new Rectangle(lastShip.XCoor, lastShip.YCoor, width, height);
-						System.out.println("1");	
+						//System.out.println("1");	
 						for(i = 0; i <= 7; i++){
 							currShip = board.myShips.get(i);
 							currShip.updateSizes();
@@ -378,7 +378,7 @@ public class BoardUI extends JFrame implements ActionListener{
 								counter++;
 							}
 						}
-						System.out.println("2");		
+						//System.out.println("2");		
 						xIndex = (e.getX()-STARTXBORDER1)/TILELENGTH;
 						yIndex = (e.getY()-STARTYBORDER)/TILELENGTH;
 						if(xIndex+lastShip.xSize>9)
@@ -386,15 +386,15 @@ public class BoardUI extends JFrame implements ActionListener{
 						if(yIndex+lastShip.ySize>9)
 							yIndex=9;
 						
-						System.out.println((lastShip.XCoor) + " < " + ((STARTXBORDER1)) + "eto na poooooo");
+						//System.out.println((lastShip.XCoor) + " < " + ((STARTXBORDER1)) + "eto na poooooo");
 						if(counter>1||lastShip.XCoor<(STARTXBORDER1)||lastShip.getEndXCoor()>(STARTXBORDER1+TILELENGTH*10)||lastShip.YCoor<STARTYBORDER||lastShip.YCoor>(STARTYBORDER+10*TILELENGTH)){
 							//System.out.println(counter + " tis truuu ");
 							lastShip.XCoor = lastX;
 							lastShip.YCoor = lastY;
 							dragging = false;
-							System.out.println("3");
+							//System.out.println("3");
 						}else{
-							System.out.println(4);
+							//System.out.println(4);
 							//System.out.println(counter + " tis trruuu ");
 							int XCoor = lastShip.XCoor;
 							int YCoor = lastShip.YCoor;
