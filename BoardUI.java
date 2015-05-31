@@ -278,7 +278,7 @@ public class BoardUI extends JFrame implements ActionListener{
 								lastShip.updateSizes();
 							}
 						}
-					}else if(e.getX() >= STARTXBORDER2 && e.getY() >= STARTYBORDER&&board.isSetUpDone&&board.isMyTurn){
+					}else if(board.isSetUpDone&&e.getX() >= STARTXBORDER2 && e.getY() >= STARTYBORDER&&board.isSetUpDone&&board.isMyTurn){
 						int x = (e.getX() - STARTXBORDER2)/TILELENGTH;
 						int y = (e.getY() - STARTYBORDER)/TILELENGTH;
 						board.evaluateMyTurn(x, y);
@@ -293,35 +293,32 @@ public class BoardUI extends JFrame implements ActionListener{
 			}
 			public void mousePressed(MouseEvent e){
 				boat1 = board.myShips.get(0);
-				int i;
-				if(e.getX()>STARTXBORDER1+10*TILELENGTH||e.getY()>STARTYBORDER+10*TILELENGTH||e.getX()<STARTXBORDER1||e.getY()<STARTYBORDER)
+				int i, counter = 0;
+				for(i = 0; i <= 7; i++){
+					if(withinCoordinates(currShip = board.myShips.get(i), e.getX(), e.getY())&&!board.isSetUpDone){
+						//System.out.println(clicked + " i ");
+						startingX = e.getX();
+						startingY = e.getY();
+						lastX = currShip.XCoor;
+						lastY = currShip.YCoor;
+						lastShip = currShip;
+						lastShip.updateSizes();
+						counter++;
+						break;
+					}
+				}
+				if(i>7)
+					dragging = true;
+				else
+					dragging = false;
+				clicked = true;
+				if(counter!=1||e.getX()>STARTXBORDER1+10*TILELENGTH||e.getY()>STARTYBORDER+10*TILELENGTH||e.getX()<STARTXBORDER1||e.getY()<STARTYBORDER)
 					doNothing = true;
 				else 
 					doNothing = false;
-				if(!doNothing){
-					for(i = 0; i <= 7; i++){
-						if(withinCoordinates(currShip = board.myShips.get(i), e.getX(), e.getY())&&!board.isSetUpDone){
-							//System.out.println(clicked + " i ");
-							startingX = e.getX();
-							startingY = e.getY();
-							lastX = currShip.XCoor;
-							lastY = currShip.YCoor;
-							lastShip = currShip;
-							lastShip.updateSizes();
-							break;
-						}
-					}
-					if(i>7)
-						dragging = true;
-					else
-						dragging = false;
-					clicked = true;
-				}else
-					doNothing = false;
-				System.out.println(" 2 ");
 			}
 			public void mouseDragged(MouseEvent e){
-				if(!doNothing){
+				if(!doNothing&&e.getX()<=STARTXBORDER1 + 10*TILELENGTH&&e.getX()>=STARTXBORDER1&&e.getY()>=STARTYBORDER&&e.getY()<=STARTYBORDER+10*TILELENGTH){
 					if(!board.isSetUpDone){//YOU CAN DRAG YAY
 						if(!dragging){
 							for(int i = 0; i <= 7; i++){
@@ -329,6 +326,7 @@ public class BoardUI extends JFrame implements ActionListener{
 									//System.out.println(i + " i ");
 									startingX = e.getX();
 									startingY = e.getY();
+									
 									break;
 								}
 							}
@@ -358,8 +356,7 @@ public class BoardUI extends JFrame implements ActionListener{
 						}
 					}
 					clicked = false;
-				}else
-					doNothing = false;
+				}
 				System.out.println(" 3 ");
 			}
 			public void mouseReleased(MouseEvent e){
