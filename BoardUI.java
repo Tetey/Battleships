@@ -243,6 +243,7 @@ public class BoardUI extends JFrame implements ActionListener{
 			Ship currShip = null;
 			int x = 0, y = 0, counter = 0;
 			public void mouseClicked(MouseEvent e){
+				doNothing=false;
 				if(!doNothing){
 					if (e.getClickCount() == 2&&!board.isSetUpDone) {
 						for(int i = 0; i <= 7; i++){
@@ -266,7 +267,7 @@ public class BoardUI extends JFrame implements ActionListener{
 								height = TILELENGTH*currShip.ySize;
 								curr = new Rectangle(currShip.XCoor, currShip.YCoor, width, height);
 								if(drag.intersects(curr)){
-									//System.out.println(i + " i ");
+									
 									startingX = e.getX();
 									startingY = e.getY();
 									counter2++;
@@ -286,7 +287,9 @@ public class BoardUI extends JFrame implements ActionListener{
 					clicked = true;
 					//System.out.println("x: "+ e.getX() + " y: " +  e.getY() );
 					repaint();
-				}
+				}else
+					doNothing = false;
+				System.out.println(" 1 ");
 			}
 			public void mousePressed(MouseEvent e){
 				boat1 = board.myShips.get(0);
@@ -313,7 +316,9 @@ public class BoardUI extends JFrame implements ActionListener{
 					else
 						dragging = false;
 					clicked = true;
-				}
+				}else
+					doNothing = false;
+				System.out.println(" 2 ");
 			}
 			public void mouseDragged(MouseEvent e){
 				if(!doNothing){
@@ -353,7 +358,9 @@ public class BoardUI extends JFrame implements ActionListener{
 						}
 					}
 					clicked = false;
-				}
+				}else
+					doNothing = false;
+				System.out.println(" 3 ");
 			}
 			public void mouseReleased(MouseEvent e){
 				if(!doNothing){
@@ -418,7 +425,9 @@ public class BoardUI extends JFrame implements ActionListener{
 					}
 					
 					repaint();
-				}
+				}else
+					doNothing = false;
+				System.out.println(" 4 ");
 			}
 		}
 		public boolean withinCoordinates(Ship ship, int x, int y) {
