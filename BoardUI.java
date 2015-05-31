@@ -143,7 +143,7 @@ public class BoardUI extends JFrame implements ActionListener{
 				
 			}
 		
-			System.out.println("ENNNND" +  board.gameStatus);
+			//System.out.println("ENNNND" +  board.gameStatus);
 			super.paintComponents(g);
 			//paintComponents(g);
 		}
@@ -239,7 +239,7 @@ public class BoardUI extends JFrame implements ActionListener{
 				if (e.getClickCount() == 2&&!board.isSetUpDone) {
 					for(int i = 0; i <= 7; i++){
 						if(withinCoordinates(currShip = board.myShips.get(i), e.getX(), e.getY())){
-							System.out.println(clicked + " here");
+							//System.out.println(clicked + " here");
 							counter++;
 							break;
 						}
@@ -258,7 +258,7 @@ public class BoardUI extends JFrame implements ActionListener{
 							height = TILELENGTH*currShip.ySize;
 							curr = new Rectangle(currShip.XCoor, currShip.YCoor, width, height);
 							if(drag.intersects(curr)){
-								System.out.println(i + " i ");
+								//System.out.println(i + " i ");
 								startingX = e.getX();
 								startingY = e.getY();
 								counter2++;
@@ -273,7 +273,7 @@ public class BoardUI extends JFrame implements ActionListener{
 					int x = (e.getX() - STARTXBORDER2)/TILELENGTH;
 					int y = (e.getY() - STARTYBORDER)/TILELENGTH;
 					board.evaluateMyTurn(x, y);
-					System.out.println("x: " + x + " y: " + y);
+					//System.out.println("x: " + x + " y: " + y);
 				}
 				clicked = true;
 				//System.out.println("x: "+ e.getX() + " y: " +  e.getY() );
@@ -283,7 +283,7 @@ public class BoardUI extends JFrame implements ActionListener{
 				int i;
 				for(i = 0; i <= 7; i++){
 					if(withinCoordinates(currShip = board.myShips.get(i), e.getX(), e.getY())&&!board.isSetUpDone){
-						System.out.println(clicked + " i ");
+						//System.out.println(clicked + " i ");
 						startingX = e.getX();
 						startingY = e.getY();
 						lastX = currShip.XCoor;
@@ -342,7 +342,7 @@ public class BoardUI extends JFrame implements ActionListener{
 						height = TILELENGTH*currShip.ySize;
 						curr = new Rectangle(currShip.XCoor, currShip.YCoor, width, height);
 						if(drag.intersects(curr)){
-							System.out.println(i + " i ");
+							//System.out.println(i + " i ");
 							startingX = e.getX();
 							startingY = e.getY();
 							counter++;
@@ -355,14 +355,14 @@ public class BoardUI extends JFrame implements ActionListener{
 					if(yIndex+lastShip.ySize>9)
 						yIndex=9;
 					
-					System.out.println((userRect.union(drag)).contains(drag) + "eto na poooooo");
+					//System.out.println((userRect.union(drag)).contains(drag) + "eto na poooooo");
 					if(counter>1||lastShip.XCoor<(STARTXBORDER1)||lastShip.getEndXCoor()>(STARTXBORDER1+TILELENGTH*10)||lastShip.YCoor<STARTYBORDER||lastShip.YCoor>(STARTYBORDER+10*TILELENGTH)){
 						System.out.println(counter + " tis truuu ");
 						lastShip.XCoor = lastX;
 						lastShip.YCoor = lastY;
 						dragging = false;
 					}else{
-						System.out.println(counter + " tis trruuu ");
+						//System.out.println(counter + " tis trruuu ");
 						int XCoor = lastShip.XCoor;
 						int YCoor = lastShip.YCoor;
 						lastShip.XCoor = getPlayerTileXPosition(xIndex);
@@ -395,6 +395,10 @@ public class BoardUI extends JFrame implements ActionListener{
 
 	public void update(){
 		repaint();	
+	}
+
+	public void closeWindow(){
+		this.dispose();
 	}
 }
 

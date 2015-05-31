@@ -22,6 +22,7 @@ public class ReceivingThread extends Thread{
 						board.setOpponentShips(msg);
 					}
 					else if(msg.equals("Your Turn")){
+						System.out.println("Your Turn.");
 						board.setMyTurn(true);
 					}
 					else if(msg.indexOf("Evaluate Opponent Turn") != -1){
@@ -41,7 +42,16 @@ public class ReceivingThread extends Thread{
 						board.setGameStatusToLose();
 						board.setMyTurn(false);
 						boardUI.update();
-					}/*
+					}
+					else if(msg.equals("Ayoko na.")){
+						m.sendMessage("End SCT"); //to prevent errors
+						MyClient.endClient(false);
+					}
+					else if(msg.equals("Ayaw mo na.")){
+						MyClient.endClient(true);
+					}
+
+					/*
 					else if(msg.equals("Draw")){
 						board.setGameStatusToDraw();
 						board.setMyTurn(false); //change to variable like, end game?

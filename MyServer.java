@@ -19,11 +19,15 @@ public class MyServer{
 				ServerClientThread sct = new ServerClientThread(m, playerNum, aSCT);
 				sct.start();
 				counter++;
+				if(counter > 2){
+					System.out.println("Max players connected! Can't accept any more players.");
+					break;
+				}
 			}
 		}
 		catch (Exception e){
 			System.out.println("Server: Something bad happened :(");
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 }

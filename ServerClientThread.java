@@ -6,7 +6,8 @@ public class ServerClientThread extends Thread{
 	int clientIndex = 0;
 	ArrayList<ServerClientThread> aSCT;
 	public boolean start = false;
-	
+	boolean gameEnd = false;
+
 	public ServerClientThread(MyConnection m, int playerNum, ArrayList<ServerClientThread> aSCT){
 		this.m = m;
 		this.playerNum = playerNum;
@@ -18,7 +19,7 @@ public class ServerClientThread extends Thread{
 		try{
 			ServerClientThread tempSCT;
 			boolean gameStart = false;
-			while(true){
+			while(!gameEnd){
 				String msg = m.getMessage();
 				if(msg != null){
 					if(msg.indexOf("Setup Done") != -1){
@@ -68,12 +69,28 @@ public class ServerClientThread extends Thread{
 						}
 					}
 
+					if(msg.equals("/quit")){
+						for(int i = 0; i < aSCT.size(); i++){
+							tempSCT = aSCT.get(i);
+							if(tempSCT != this){
+								msg = "Ayoko na.";
+								tempSCT.m.sendMessage(msg);
+								tempSCT.gameEnd = true;
+							}
+							else{
+								msg = "Ayaw mo na.";
+								tempSCT.m.sendMessage(msg);
+							}
+						}
+						gameEnd = true;
+					}
+
 					if(msg.equals("I win")){
 						for(int i = 0; i < aSCT.size(); i++){
 							tempSCT = aSCT.get(i);
 							if(tempSCT != this){
 								tempSCT.m.sendMessage("You lose");
-								break;
+								gameEnd = true;
 							}
 						}
 					}	
@@ -82,11 +99,11 @@ public class ServerClientThread extends Thread{
 							tempSCT = aSCT.get(i);
 							if(tempSCT != this){
 								tempSCT.m.sendMessage("You win");
-								break;
+								gameEnd = true;
 							}
 						}
 
-					}	
+					}	/*
 					else if(msg.equals("Draw")){
 						for(int i = 0; i < aSCT.size(); i++){
 							tempSCT = aSCT.get(i);
@@ -95,15 +112,17 @@ public class ServerClientThread extends Thread{
 								break;
 							}
 						}
-					}			
+					}	*/		
+
 
 					//all server processing message from client stuff put here
 				}
 			}
+			//System.out.println("Tapos na eh");
 		}
 		catch(Exception e){
 			System.out.println("Server: Something bad happened :(");
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 }

@@ -213,21 +213,21 @@ public class Board{
 			//set to bombed
 			opponentBoard[x][y] = BOMBED;
 			setMyTurn(false);
-			System.out.println("Not my turn.");
-			System.out.println("Naset ko na ba turn ko? " + isMyTurn);
+			System.out.println("Opponent's Turn.");
+			//System.out.println("Naset ko na ba turn ko? " + isMyTurn);
 		}
 		else{
 			String tempShipName = opponentBoard[x][y];
 			Ship tempShip;
-			System.out.println("SIZE!!!! of opponentShips KO : " + opponentShips.size());
+			//System.out.println("SIZE!!!! of opponentShips KO : " + opponentShips.size());
 			for(int i = 0; i < opponentShips.size(); i++){
 				tempShip = opponentShips.get(i);
 				if(tempShip.shipName.equals(tempShipName)){
 					tempShip.sunk--;
 					//set opponentboard to tileDead
 					opponentBoard[x][y] = TILEDEAD;
-					System.out.println("Still my turn.");
-					System.out.println("Naset ko na ba turn ko? " + isMyTurn);
+					System.out.println("Your Turn.");
+					//System.out.println("Naset ko na ba turn ko? " + isMyTurn);
 					break;
 				}
 			}
@@ -240,21 +240,21 @@ public class Board{
 		if(myBoard[x][y].equals("null")){
 			//set to bombed
 			myBoard[x][y] = BOMBED;
-			System.out.println("My turn!");
+			System.out.println("Your Turn.");
 			setMyTurn(true);		
-			System.out.println("Naset ko na ba turn ko? " + isMyTurn);
+			//System.out.println("Naset ko na ba turn ko? " + isMyTurn);
 		}
 		else{
 			String tempShipName = myBoard[x][y];
 			Ship tempShip;
 			for(int i = 0; i < myShips.size(); i++){
 				tempShip = myShips.get(i);
-				System.out.println(tempShip.shipName + " " + tempShipName + " " + tempShip.sunk);
+				//System.out.println(tempShip.shipName + " " + tempShipName + " " + tempShip.sunk);
 				if(tempShip.shipName.equals(tempShipName)){
 					tempShip.sunk--;
 					//set myBoard to tileDead
-					System.out.println("Still not my turn.");
-					System.out.println("Naset ko na ba turn ko? " + isMyTurn);
+					System.out.println("Opponent's Turn.");
+					//System.out.println("Naset ko na ba turn ko? " + isMyTurn);
 					myBoard[x][y] = TILEDEAD;
 					break;
 				}
