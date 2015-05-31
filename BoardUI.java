@@ -122,29 +122,40 @@ public class BoardUI extends JFrame implements ActionListener{
 		
 		//Draw functions
 		public void paint(Graphics g){
-			if(!board.gameStatus.equals("end")){
-				try{
-					drawBackgroundImage(g);
-					g.fillRect(STARTXBORDER1-1, STARTYBORDER-1, 10*TILELENGTH+1, 10*TILELENGTH+1);
-					g.fillRect(STARTXBORDER2-1, STARTYBORDER-1, 10*TILELENGTH+1, 10*TILELENGTH+1);
-					g.clearRect(STARTXBORDER1, STARTYBORDER, 10*TILELENGTH-1, 10*TILELENGTH-1);
-					g.clearRect(STARTXBORDER2, STARTYBORDER, 10*TILELENGTH-1, 10*TILELENGTH-1);
-					g.drawRect(STARTXBORDER1, STARTYBORDER, 10*TILELENGTH, 10*TILELENGTH);
-					g.drawRect(STARTXBORDER2, STARTYBORDER, 10*TILELENGTH, 10*TILELENGTH);
-					drawShips(g);
+			try{
+				drawBackgroundImage(g);
+				g.fillRect(STARTXBORDER1-1, STARTYBORDER-1, 10*TILELENGTH+1, 10*TILELENGTH+1);
+				g.fillRect(STARTXBORDER2-1, STARTYBORDER-1, 10*TILELENGTH+1, 10*TILELENGTH+1);
+				g.clearRect(STARTXBORDER1, STARTYBORDER, 10*TILELENGTH-1, 10*TILELENGTH-1);
+				g.clearRect(STARTXBORDER2, STARTYBORDER, 10*TILELENGTH-1, 10*TILELENGTH-1);
+				g.drawRect(STARTXBORDER1, STARTYBORDER, 10*TILELENGTH, 10*TILELENGTH);
+				g.drawRect(STARTXBORDER2, STARTYBORDER, 10*TILELENGTH, 10*TILELENGTH);
+				drawShips(g);
 
-					userRect = new Rectangle(STARTXBORDER1, STARTYBORDER, 10*TILELENGTH-1, 10*TILELENGTH-1);
-					drawGridLines(g);
-					drawBoardStatus(g);
-				}catch(IOException e){
+				userRect = new Rectangle(STARTXBORDER1, STARTYBORDER, 10*TILELENGTH-1, 10*TILELENGTH-1);
+				drawGridLines(g);
+				drawBoardStatus(g);
+				if(board.gameStatus.equals("win")||board.gameStatus.equals("lose"))
+					drawResult(g);
 					
-				}
+				//System.out.println("ENNNND" + board.gameStatus);
+			}catch(IOException e){
+				
 			}
-			else{
-				//drawResult();
-			}
+		
+			System.out.println("ENNNND" +  board.gameStatus);
 			super.paintComponents(g);
 			//paintComponents(g);
+		}
+		
+		private void drawResult(Graphics g){
+			//if(.equals("win"))
+			try {
+				g.drawImage(ImageIO.read(new File("Images" + File.separator + board.gameStatus + ".png")), 400-144, 200-72, 288,144, null);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		private void drawShips(Graphics g) {
@@ -156,12 +167,14 @@ public class BoardUI extends JFrame implements ActionListener{
 				oppShip = board.opponentShips.get(i);
 				xPos = currShip.XCoor;
 				yPos = currShip.YCoor ;
+				if(currShip.sunk==0)
+					g.setColor(Color.RED);
 				drawBorderedRect(xPos, yPos, currShip.xSize, currShip.ySize, g);
 				g.setColor(Color.RED);
 				oppShip.updateSizes();
 				if(oppShip.sunk==0){
 					drawBorderedRect(oppShip.getOppXCoordinates(), oppShip.getYCoordinates(), oppShip.xSize, oppShip.ySize, g);
-				System.out.println("ENNNND");
+					
 				}
 				xPos = 0;
 				yPos = 0;	
