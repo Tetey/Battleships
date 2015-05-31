@@ -158,9 +158,11 @@ public class BoardUI extends JFrame implements ActionListener{
 				yPos = currShip.YCoor ;
 				drawBorderedRect(xPos, yPos, currShip.xSize, currShip.ySize, g);
 				g.setColor(Color.RED);
-				if(oppShip.sunk==0)
+				oppShip.updateSizes();
+				if(oppShip.sunk==0){
 					drawBorderedRect(oppShip.getOppXCoordinates(), oppShip.getYCoordinates(), oppShip.xSize, oppShip.ySize, g);
-				//System.out.println("yPos: " + yPos + " xPos: " + xPos + " ySize: " + ySize + " xSize: " + xSize);
+				System.out.println("ENNNND");
+				}
 				xPos = 0;
 				yPos = 0;	
 				g.setColor(Color.BLUE);
@@ -230,8 +232,29 @@ public class BoardUI extends JFrame implements ActionListener{
 						}
 					}
 					if(counter>1){
+						int width, height, counter2=0;
+						Ship lastShip = null;
 						currShip.isHorizontal = !currShip.isHorizontal;
 						currShip.updateSizes();
+						lastShip = currShip;
+						Rectangle curr = new Rectangle();
+						Rectangle drag = new Rectangle(currShip.XCoor, currShip.YCoor, TILELENGTH*currShip.xSize, TILELENGTH*currShip.ySize);
+						for(int i = 0; i <= 7; i++){
+							currShip = board.myShips.get(i);
+							width = TILELENGTH*currShip.xSize;
+							height = TILELENGTH*currShip.ySize;
+							curr = new Rectangle(currShip.XCoor, currShip.YCoor, width, height);
+							if(drag.intersects(curr)){
+								System.out.println(i + " i ");
+								startingX = e.getX();
+								startingY = e.getY();
+								counter2++;
+							}
+						}
+						if(counter2>1||lastShip.XCoor<(STARTXBORDER1)||lastShip.getEndXCoor()>(STARTXBORDER1+TILELENGTH*10)||lastShip.YCoor<STARTYBORDER||lastShip.YCoor>(STARTYBORDER+10*TILELENGTH)){
+							lastShip.isHorizontal = !currShip.isHorizontal;
+							lastShip.updateSizes();
+						}
 					}
 				}else if(e.getX() >= STARTXBORDER2 && e.getY() >= STARTYBORDER&&board.isSetUpDone&&board.isMyTurn){
 					int x = (e.getX() - STARTXBORDER2)/TILELENGTH;
@@ -316,17 +339,29 @@ public class BoardUI extends JFrame implements ActionListener{
 						yIndex=9;
 					
 					System.out.println((userRect.union(drag)).contains(drag) + "eto na poooooo");
-					if(counter>1){
+					if(counter>1||lastShip.XCoor<(STARTXBORDER1)||lastShip.getEndXCoor()>(STARTXBORDER1+TILELENGTH*10)||lastShip.YCoor<STARTYBORDER||lastShip.YCoor>(STARTYBORDER+10*TILELENGTH)){
 						System.out.println(counter + " tis truuu ");
 						lastShip.XCoor = lastX;
 						lastShip.YCoor = lastY;
 						dragging = false;
 					}else{
 						System.out.println(counter + " tis trruuu ");
+						int XCoor = lastShip.XCoor;
+						int YCoor = lastShip.YCoor;
 						lastShip.XCoor = getPlayerTileXPosition(xIndex);
 						lastShip.YCoor = getTileYPosition(yIndex);
 						lastShip.XPosition = xIndex;
 						lastShip.YPosition = yIndex;
+
+						if(lastShip.getEndXCoor()>(STARTXBORDER1 + 10*TILELENGTH)){
+							lastShip.XCoor = (STARTXBORDER1 + (10-lastShip.xSize)*TILELENGTH);
+							lastShip.XPosition = 10-lastShip.xSize;
+						}
+						if(lastShip.getEndYCoor()>(STARTYBORDER+10*TILELENGTH)){
+							lastShip.YCoor = (STARTYBORDER + (10-lastShip.ySize)*TILELENGTH);
+							lastShip.YPosition = 10-lastShip.ySize;
+						}
+						
 						dragging = false;
 					}
 					dragging = false;

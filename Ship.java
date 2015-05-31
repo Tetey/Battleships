@@ -86,6 +86,14 @@ public class Ship{
 		return BoardUI.STARTXBORDER1 + XPosition*BoardUI.TILELENGTH+1;
 	}
 	
+	public int getEndXCoor(){
+		return XCoor + BoardUI.TILELENGTH*xSize;
+	}
+	
+	public int getEndYCoor(){
+		return YCoor + BoardUI.TILELENGTH*ySize;
+	}
+	
 	public int getYCoordinates(){
 		return BoardUI.STARTYBORDER + YPosition*BoardUI.TILELENGTH+1;
 	}
