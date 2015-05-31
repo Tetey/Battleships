@@ -30,4 +30,8 @@ public class MyServer{
 			//e.printStackTrace();
 		}
 	}
+
+	public static void endServer(){
+		System.exit(0);
+	}
 }

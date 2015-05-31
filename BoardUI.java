@@ -104,7 +104,7 @@ public class BoardUI extends JFrame implements ActionListener{
 		             size.width, size.height);
 		
 		setContentPane(panel);
-		setSize(800, 450);
+		setSize(800, 430);
 		
 	        
         setDefaultCloseOperation(EXIT_ON_CLOSE);

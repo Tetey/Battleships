@@ -83,6 +83,7 @@ public class ServerClientThread extends Thread{
 							}
 						}
 						gameEnd = true;
+						MyServer.endServer();
 					}
 
 					if(msg.equals("I win")){
