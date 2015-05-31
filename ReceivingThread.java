@@ -35,15 +35,18 @@ public class ReceivingThread extends Thread{
 					else if(msg.equals("You win")){
 						board.setGameStatusToWin();
 						board.setMyTurn(false);
+						boardUI.update();
 					}
 					else if(msg.equals("You lose")){
 						board.setGameStatusToLose();
 						board.setMyTurn(false);
-					}
+						boardUI.update();
+					}/*
 					else if(msg.equals("Draw")){
 						board.setGameStatusToDraw();
 						board.setMyTurn(false); //change to variable like, end game?
-					}
+						boar
+					}*/
 				}
 			}
 		}
