@@ -90,7 +90,7 @@ public class ServerClientThread extends Thread{
 							tempSCT = aSCT.get(i);
 							if(tempSCT != this){
 								tempSCT.m.sendMessage("You lose");
-								gameEnd = true;
+								//gameEnd = true;
 							}
 						}
 					}	
@@ -99,7 +99,7 @@ public class ServerClientThread extends Thread{
 							tempSCT = aSCT.get(i);
 							if(tempSCT != this){
 								tempSCT.m.sendMessage("You win");
-								gameEnd = true;
+								//gameEnd = true;
 							}
 						}
 

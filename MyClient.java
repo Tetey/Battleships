@@ -29,7 +29,7 @@ public class MyClient{
 			String quit = "";
 
 			while(!quit.equals("/quit")){
-				System.out.println("Type /quit to end the game: ");
+				System.out.println("---Type /quit to end the game--- ");
 				quit = scanner.nextLine();
 			}
 
