@@ -289,7 +289,7 @@ public class BoardUI extends JFrame implements ActionListener{
 					repaint();
 				}else
 					doNothing = false;
-				System.out.println(" 1 ");
+				//System.out.println(" 1 ");
 			}
 			public void mousePressed(MouseEvent e){
 				boat1 = board.myShips.get(0);
@@ -357,7 +357,7 @@ public class BoardUI extends JFrame implements ActionListener{
 					}
 					clicked = false;
 				}
-				System.out.println(" 3 ");
+				//System.out.println(" 3 ");
 			}
 			public void mouseReleased(MouseEvent e){
 				if(!doNothing){
@@ -424,7 +424,7 @@ public class BoardUI extends JFrame implements ActionListener{
 					repaint();
 				}else
 					doNothing = false;
-				System.out.println(" 4 ");
+				//System.out.println(" 4 ");
 			}
 		}
 		public boolean withinCoordinates(Ship ship, int x, int y) {
