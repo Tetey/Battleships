@@ -78,7 +78,7 @@ public class BoardUI extends JFrame implements ActionListener{
 		//file.addSeparator();
 		//file.add(exit);
 		
-        bar.add(file);
+        //bar.add(file);
         setJMenuBar(bar);
         setDefaultLookAndFeelDecorated(true);		
         
