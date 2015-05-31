@@ -62,13 +62,17 @@ public class BoardUI extends JFrame implements ActionListener{
 
 		instructions.addActionListener(this);
 		instructions.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I, ActionEvent.CTRL_MASK));
-		exit.addActionListener(this);
+		exit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+            	System.exit(0);
+            }
+        });   
 		exit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
 		//file.addActionListener(new JMenuActionListener(this));
 		
-		file.add(newgame);
-		file.add(instructions);
-		file.addSeparator();
+		//file.add(newgame);
+		//file.add(instructions);
+		//file.addSeparator();
 		file.add(exit);
 		
         bar.add(file);
@@ -357,7 +361,7 @@ public class BoardUI extends JFrame implements ActionListener{
 					
 					//System.out.println((userRect.union(drag)).contains(drag) + "eto na poooooo");
 					if(counter>1||lastShip.XCoor<(STARTXBORDER1)||lastShip.getEndXCoor()>(STARTXBORDER1+TILELENGTH*10)||lastShip.YCoor<STARTYBORDER||lastShip.YCoor>(STARTYBORDER+10*TILELENGTH)){
-						System.out.println(counter + " tis truuu ");
+						//System.out.println(counter + " tis truuu ");
 						lastShip.XCoor = lastX;
 						lastShip.YCoor = lastY;
 						dragging = false;
