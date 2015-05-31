@@ -73,7 +73,7 @@ public class BoardUI extends JFrame implements ActionListener{
 		//file.add(newgame);
 		//file.add(instructions);
 		//file.addSeparator();
-		file.add(exit);
+		//file.add(exit);
 		
         bar.add(file);
         setJMenuBar(bar);
