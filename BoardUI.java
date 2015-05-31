@@ -144,7 +144,7 @@ public class BoardUI extends JFrame implements ActionListener{
 				drawBoardStatus(g);
 				if(board.gameStatus.equals("win")||board.gameStatus.equals("lose"))
 					drawResult(g);
-				doNothing = false;
+					
 				//System.out.println("ENNNND" + board.gameStatus);
 			}catch(IOException e){
 				
@@ -328,7 +328,7 @@ public class BoardUI extends JFrame implements ActionListener{
 								}
 							}
 							dragging = true;
-							//System.out.println("5");
+						//	System.out.println("5");
 						}
 						if (dragging){
 							if (refreshCounter >= refreshRate){
@@ -345,9 +345,9 @@ public class BoardUI extends JFrame implements ActionListener{
 							}
 							if(currShip.XCoor<(STARTXBORDER1)||currShip.getEndXCoor()>(STARTXBORDER1+TILELENGTH*10)||currShip.YCoor<STARTYBORDER||currShip.YCoor>(STARTYBORDER+10*TILELENGTH)){
 								//System.out.println(counter + " tis truuu ");
-								currShip.XCoor = getPlayerTileXPosition(board.myShips.get(0).XPosition);
-								currShip.YCoor = getTileYPosition(board.myShips.get(0).YPosition);
-								//System.out.println("3");
+								currShip.XPosition = board.myShips.get(0).XPosition;
+								currShip.YPosition = board.myShips.get(0).YPosition;
+							//	System.out.println("3");
 							}
 							//System.out.println("6");
 						}
@@ -392,9 +392,9 @@ public class BoardUI extends JFrame implements ActionListener{
 							lastShip.XCoor = lastX;
 							lastShip.YCoor = lastY;
 							dragging = false;
-							//System.out.println("3");
+					//		System.out.println("3");
 						}else{
-							//System.out.println(4);
+					//		System.out.println(4);
 							//System.out.println(counter + " tis trruuu ");
 							int XCoor = lastShip.XCoor;
 							int YCoor = lastShip.YCoor;
