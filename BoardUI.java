@@ -80,7 +80,7 @@ public class BoardUI extends JFrame implements ActionListener{
 		panel.setLayout(null);
 		
 		
-		JButton done = new JButton("Done");
+		final JButton done = new JButton("Done");
 		done.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
             	board.isSetUpDone = true;
@@ -308,18 +308,25 @@ public class BoardUI extends JFrame implements ActionListener{
 							counter++;
 						}
 					}
+					xIndex = (e.getX()-STARTXBORDER1)/TILELENGTH;
+					yIndex = (e.getY()-STARTYBORDER)/TILELENGTH;
+					if(xIndex+lastShip.xSize>9)
+						xIndex=9;
+					if(yIndex+lastShip.ySize>9)
+						yIndex=9;
+					
 					System.out.println((userRect.union(drag)).contains(drag) + "eto na poooooo");
-					if(counter>1||(drag.contains(userRect.union(drag)))){
+					if(counter>1){
 						System.out.println(counter + " tis truuu ");
 						lastShip.XCoor = lastX;
 						lastShip.YCoor = lastY;
 						dragging = false;
 					}else{
 						System.out.println(counter + " tis trruuu ");
-						xIndex = (e.getX()-STARTXBORDER1)/TILELENGTH;
-						yIndex = (e.getY()-STARTYBORDER)/TILELENGTH;
 						lastShip.XCoor = getPlayerTileXPosition(xIndex);
 						lastShip.YCoor = getTileYPosition(yIndex);
+						lastShip.XPosition = xIndex;
+						lastShip.YPosition = yIndex;
 						dragging = false;
 					}
 					dragging = false;
